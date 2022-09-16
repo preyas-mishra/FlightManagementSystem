@@ -23,6 +23,18 @@ public class GlobalExceptionHandler {
     {
         return "IdNotFoundException"+":"+e.getMessage();
     }
+	
+	@ExceptionHandler(IdNotFoundException.class)
+    public String handlerForIdNotFoundException(IdNotFoundException e)
+    {
+        return "IdNotFoundException :"+e.getMessage();
+    }
+
+    @ExceptionHandler(IdAlreadyExistException.class)
+    public String handlerForIdAlreadyExistException(IdAlreadyExistException e)
+    {
+        return "IdAlreadyExistException :"+e.getMessage();
+    }
     
     @ExceptionHandler(NoOfPassengersException.class)
     public String handlingMethod(NoOfPassengersException e)

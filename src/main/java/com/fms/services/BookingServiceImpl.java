@@ -11,7 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.fms.daos.BookingRepository;
+import com.fms.daos.BookingDao;
 import com.fms.dtos.Booking;
 import com.fms.dtos.Passenger;
 import com.fms.exceptions.BookingIdNotFoundException;
@@ -21,7 +21,7 @@ import com.fms.exceptions.BookingIdNotFoundException;
 public class BookingServiceImpl implements BookingService{
 	
 	@Autowired
-	private BookingRepository bookingRepository;
+	private BookingDao bookingRepository;
 	
 	private List<Booking>bookingList;
 	

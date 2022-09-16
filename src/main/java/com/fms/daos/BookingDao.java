@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 import com.fms.dtos.Booking;
 
 @Repository("bookingRepository")
-public interface BookingRepository extends JpaRepository<Booking, BigInteger>{
+public interface BookingDao extends JpaRepository<Booking, BigInteger>{
 	
 }

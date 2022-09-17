@@ -1,11 +1,15 @@
 package com.fms.dtos;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.*;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
     * This Users class is used to create user objects
@@ -37,8 +41,8 @@ public class User {
 
     @NotEmpty
     private String userType;
-
-    /**
+ 
+	/**
         * Parameterized Constructor of Users
      */
 

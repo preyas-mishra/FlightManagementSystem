@@ -88,12 +88,5 @@ public class BookingServiceImpl implements BookingService{
 		}
 	}
 	
-	public void validateBooking(Booking bid) {
-//		Validates the attributes of a booking.
-		
-	}
 	
-	public void validatePassenger(Passenger pid) {
-//		Validates the attributes of a passenger.
-	}
 }

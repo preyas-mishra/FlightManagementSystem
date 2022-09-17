@@ -36,18 +36,23 @@ public class FmsApplication {
 		BigInteger phone6=BigInteger.valueOf(7755918779L);
 		BigInteger phone7=BigInteger.valueOf(7036351827L);
 
+		// Created Constant Variable as value of constant hasbeen used multiple times.
+
+		private static final String ADMIN = "action1";  // Compliant
+
+
 		/*
 			* Admins are created here itself as the application can only create customers who use this application.
 		 */
 
 		return args -> {
-			var user1 = new User("Deepak",phone1,"deepak@gmail.com","Deepak@203","admin");
-			var user2 = new User("Girish",phone2,"girish@gmail.com","Girish@720","admin");
-			var user3 = new User("Preyas",phone3,"preyas@gmail.com","Preyas@327","admin");
-			var user4 = new User("Rutuja",phone4,"rutuja@gmail.com","Rutuja@340","admin");
-			var user5 = new User("Sneha",phone5,"sneha@gmail.com","Sneha@779","admin");
-			var user6 = new User("Tejaswi",phone6,"tejaswi@gmail.com","Tejaswi@642","admin");
-			var user7 = new User("UmaMahesh",phone7,"gorsaumamahesh@gmail.com","Mahesh@327","admin");
+			var user1 = new User("Deepak",phone1,"deepak@gmail.com","Deepak@203",ADMIN);
+			var user2 = new User("Girish",phone2,"girish@gmail.com","Girish@720",ADMIN);
+			var user3 = new User("Preyas",phone3,"preyas@gmail.com","Preyas@327",ADMIN);
+			var user4 = new User("Rutuja",phone4,"rutuja@gmail.com","Rutuja@340",ADMIN);
+			var user5 = new User("Sneha",phone5,"sneha@gmail.com","Sneha@779",ADMIN);
+			var user6 = new User("Tejaswi",phone6,"tejaswi@gmail.com","Tejaswi@642",ADMIN);
+			var user7 = new User("UmaMahesh",phone7,"gorsaumamahesh@gmail.com","Mahesh@327",ADMIN);
 
 			userService.addUser(user1);
 			userService.addUser(user2);

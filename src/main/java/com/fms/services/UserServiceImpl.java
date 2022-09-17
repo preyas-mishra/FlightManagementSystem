@@ -2,6 +2,7 @@ package com.fms.services;
 
 import com.fms.dtos.Booking;
 import com.fms.dtos.User;
+import com.fms.exceptions.BookingAlreadyPresentException;
 import com.fms.exceptions.IdAlreadyExistException;
 import com.fms.exceptions.IdNotFoundException;
 import com.fms.daos.BookingDao;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,7 +60,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public void deleteUser(BigInteger userId)
     {
-        Optional<User> findUserById = userDao.findById(userId);
+    	Optional<User> findUserById = userDao.findById(userId);
         if(findUserById.isPresent())
         {
             userDao.deleteById(userId);

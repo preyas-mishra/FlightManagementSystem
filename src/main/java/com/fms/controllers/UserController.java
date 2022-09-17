@@ -1,6 +1,7 @@
 package com.fms.controllers;
 
 import com.fms.dtos.User;
+import com.fms.services.BookingServiceImpl;
 import com.fms.services.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,9 @@ public class UserController {
 
     @Autowired
     UserServiceImpl userServiceImpl;
+    
+    @Autowired
+    BookingServiceImpl bookingServiceImpl;
 
     @GetMapping("/users")
     public List<User> viewUser()
@@ -47,5 +51,6 @@ public class UserController {
     public void deleteUser(@PathVariable("userId")BigInteger  userId)
     {
         userServiceImpl.deleteUser(userId);
+        
     }
 }

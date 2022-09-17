@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import com.fms.dtos.Passenger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.fms.daos.BookingDao;
 import com.fms.dtos.Booking;
-import com.fms.dtos.Passenger;
+//import com.fms.dtos.Passenger;
 import com.fms.exceptions.BookingIdNotFoundException;
 
 @Transactional
@@ -29,16 +30,17 @@ public class BookingServiceImpl implements BookingService{
 		return bookingRepository.findById(bid);
 	}
 	
-	public ResponseEntity<Booking> addBooking(Booking booking) {
+	public Booking addBooking(Booking booking) {
 //		Creates a new booking.
-		bookingRepository.save(booking);
-		return new ResponseEntity<Booking>(booking,HttpStatus.CREATED);
+//		Booking booking1=bookingRepository.save(booking);
+//		return new ResponseEntity<>(booking1,HttpStatus.CREATED);
+		return bookingRepository.save(booking);
 	}
 	
-	public ResponseEntity<String> modifyBooking(BigInteger bid,Booking booking) {
+	public Booking modifyBooking(Booking booking) {
 //		Modifies a previous booking. All information related to the booking 
 //		except the booking id can be modified.
-		Optional<Booking> oBooking = bookingRepository.findById(bid);
+		Optional<Booking> oBooking = bookingRepository.findById(booking.getBookingId());
 		if(oBooking.isPresent()) {
 			Booking prevBooking = oBooking.get();
 			if(booking.getBookingDate()!=null) {
@@ -47,11 +49,12 @@ public class BookingServiceImpl implements BookingService{
 			if(booking.getNoOfPassengers()!=null) {
 				prevBooking.setNoOfPassengers(booking.getNoOfPassengers());
 			}
-			bookingRepository.save(prevBooking);
-			return new ResponseEntity<String>("Data updated successfully",HttpStatus.ACCEPTED);
+//			Booking booking1=bookingRepository.save(prevBooking);
+//			return new ResponseEntity<Booking>(booking1,HttpStatus.ACCEPTED);
+			return bookingRepository.save(prevBooking);
 		}
 		else {
-			throw new BookingIdNotFoundException("Booking Id is not found "+bid);
+			throw new BookingIdNotFoundException("Booking Id is not found "+booking.getBookingId());
 		}
 		
 	}
@@ -88,5 +91,12 @@ public class BookingServiceImpl implements BookingService{
 		}
 	}
 	
+	public void validateBooking(Booking bid) {
+//		Validates the attributes of a booking.
+		
+	}
 	
+	public void validatePassenger(Passenger pid) {
+//		Validates the attributes of a passenger.
+	}
 }

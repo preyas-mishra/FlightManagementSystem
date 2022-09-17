@@ -1,11 +1,6 @@
 package com.fms.dtos;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -17,6 +12,7 @@ import java.util.List;
  */
 
 @Entity
+@Table(name="users")
 public class User {
 
     @Id
@@ -41,8 +37,13 @@ public class User {
 
     @NotEmpty
     private String userType;
- 
-	/**
+
+//    @OneToOne(cascade = CascadeType.ALL)
+//    private Booking booking;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private List<Booking> booking=new ArrayList<>();
+
+    /**
         * Parameterized Constructor of Users
      */
 
@@ -121,4 +122,24 @@ public class User {
     {
         this.userType = userType;
     }
+
+    public List<Booking> getBooking() {
+        return booking;
+    }
+
+    public void setBooking(List<Booking> bookingList) {
+        this.booking = bookingList;
+        for(Booking temp:bookingList)
+        {
+            temp.setUser(this);
+        }
+    }
+
+//    public Booking getBooking() {
+//        return booking;
+//    }
+//
+//    public void setBooking(Booking booking) {
+//        this.booking = booking;
+//    }
 }

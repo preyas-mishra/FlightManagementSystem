@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fms.dtos.Booking;
-import com.fms.dtos.User;
 import com.fms.services.BookingServiceImpl;
 
 @RestController
@@ -33,16 +32,16 @@ public class BookingController {
 		@PostMapping("/bookings")
 		public ResponseEntity<Booking> addBooking(@Valid @RequestBody Booking booking) {
 //		Creates a new booking.
-			bookingService.addBooking(booking);
-			return new ResponseEntity<Booking>(booking,HttpStatus.OK);
+			Booking booking1=bookingService.addBooking(booking);
+			return new ResponseEntity<>(booking1,HttpStatus.OK);
 		}
 		
 //		Modifies a previous booking. All information related to the 
 //		booking except the booking id can be modified.
-		@PutMapping("/bookings/{bid}")
-		public ResponseEntity<String> modifyBooking(@Valid @PathVariable("bid")BigInteger bid, @RequestBody Booking booking) {
-			bookingService.modifyBooking(bid,booking);
-			return new ResponseEntity<String>("Data Updated Successfully",HttpStatus.OK);
+		@PutMapping("/bookings")
+		public ResponseEntity<Booking> modifyBooking(@Valid @RequestBody Booking booking) {
+			Booking booking1=bookingService.modifyBooking(booking);
+			return new ResponseEntity<>(booking1,HttpStatus.OK);
 		}
 		
 		@GetMapping("/bookings/{bid}")
@@ -65,5 +64,4 @@ public class BookingController {
 			bookingService.deleteBooking(bid);
 			return new ResponseEntity<String>("Record Deleted Successfully with Id"+bid,HttpStatus.OK);
 		}
-		
 }

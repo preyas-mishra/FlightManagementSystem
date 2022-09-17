@@ -1,14 +1,11 @@
 package com.fms.daos;
 
-import java.math.BigInteger;
-import java.util.Optional;
-
+import com.fms.dtos.Booking;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.fms.dtos.Booking;
+import java.math.BigInteger;
 
-@Repository("bookingRepository")
-public interface BookingDao extends JpaRepository<Booking, BigInteger>{
-	
+@Repository
+public interface BookingDao extends JpaRepository<Booking, BigInteger> {
 }

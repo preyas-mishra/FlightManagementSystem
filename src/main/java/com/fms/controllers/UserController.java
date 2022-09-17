@@ -31,20 +31,20 @@ public class UserController {
     @PostMapping("/users")
     public ResponseEntity<User> addUser(@Valid @RequestBody User newUser)
     {
-        userServiceImpl.addUser(newUser);
-        return new ResponseEntity<>(newUser,HttpStatus.OK);
+        User user=userServiceImpl.addUser(newUser);
+        return new ResponseEntity<>(user,HttpStatus.CREATED);
     }
 
     @PutMapping("/users")
     public ResponseEntity<User> updateUser(@Valid @RequestBody User updateUser)
     {
 
-        userServiceImpl.updateUser(updateUser);
-        return new ResponseEntity<>(updateUser,HttpStatus.OK);
+        User user=userServiceImpl.updateUser(updateUser);
+        return new ResponseEntity<>(user,HttpStatus.OK);
     }
 
-    @DeleteMapping("/users")
-    public void deleteUser(BigInteger userId)
+    @DeleteMapping("/users/{userId}")
+    public void deleteUser(@PathVariable ("userId") BigInteger userId)
     {
         userServiceImpl.deleteUser(userId);
     }

@@ -1,8 +1,8 @@
 package com.fms.services;
 
 import com.fms.dtos.User;
-import com.fms.exceptions.IdAlreadyExistException;
-import com.fms.exceptions.IdNotFoundException;
+import com.fms.exceptions.UserIdAlreadyExistException;
+import com.fms.exceptions.UserIdNotFoundException;
 import com.fms.daos.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,10 +25,9 @@ public class UserServiceImpl implements UserService{
         Optional<User> findUserByEmail=userDao.findByUserEmail(newUser.getUserEmail());
         if(findUserByEmail.isPresent())
         {
-            throw new IdAlreadyExistException("User with email :" + newUser.getUserEmail() + " already exist.");
+            throw new UserIdAlreadyExistException("User with email :" + newUser.getUserEmail() + " already exist.");
         }
-        userDao.save(newUser);
-        return newUser;
+        return userDao.save(newUser);
     }
 
     @Override
@@ -37,12 +36,11 @@ public class UserServiceImpl implements UserService{
         Optional<User> findUserById = userDao.findById(updateUser.getUserId());
         if(findUserById.isPresent())
         {
-            userDao.save(updateUser);
-            return updateUser;
+            return userDao.save(updateUser);
         }
         else
         {
-            throw new IdNotFoundException(STR+updateUser.getUserId()+" doesnot exist so cannot update the user.");
+            throw new UserIdNotFoundException(STR+updateUser.getUserId()+" doesnot exist so cannot update the user.");
         }
     }
 
@@ -56,7 +54,7 @@ public class UserServiceImpl implements UserService{
         }
         else
         {
-            throw new IdNotFoundException(STR+userId+" doesnot exist so cannot delete the user.");
+            throw new UserIdNotFoundException(STR+userId+" doesnot exist so cannot delete the user.");
         }
     }
 
@@ -70,7 +68,7 @@ public class UserServiceImpl implements UserService{
         }
         else
         {
-            throw new IdNotFoundException(STR+userId+" doesnot exist so cannot show the user details.");
+            throw new UserIdNotFoundException(STR+userId+" doesnot exist so cannot show the user details.");
         }
     }
 
@@ -81,12 +79,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void validateUser(User users)
+    public void validateUser(User user)
     {
-        Optional<User> findUserByEmail=userDao.findByUserEmail(users.getUserEmail());
-        if(findUserByEmail.isPresent())
-        {
-            throw new IdAlreadyExistException(STR + users.getUserId() + " already exist.");
-        }
+        //Validates the Inputs Given To User
     }
 }

@@ -5,8 +5,8 @@ package com.fms.exceptions;
     * when the id of the user already present in the database.
  **/
 
-public class IdAlreadyExistException extends RuntimeException{
-    public IdAlreadyExistException(String msg)
+public class UserIdAlreadyExistException extends RuntimeException{
+    public UserIdAlreadyExistException(String msg)
     {
         super(msg);
     }

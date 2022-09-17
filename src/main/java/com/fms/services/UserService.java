@@ -8,7 +8,7 @@ public interface UserService {
 
     public User addUser(User newUser);
 
-    public User updateUser(User users);
+    public User updateUser(User user);
 
     public void deleteUser(BigInteger userId);
 
@@ -16,5 +16,5 @@ public interface UserService {
 
     public User viewUser(BigInteger userId);
 
-    public void validateUser(User users);
+    public void validateUser(User user);
 }

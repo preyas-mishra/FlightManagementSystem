@@ -43,8 +43,8 @@ public class UserController {
         return new ResponseEntity<>(updateUser,HttpStatus.OK);
     }
 
-    @DeleteMapping("/users")
-    public void deleteUser(BigInteger userId)
+    @DeleteMapping("/users/{userId}")
+    public void deleteUser(@PathVariable("userId")BigInteger  userId)
     {
         userServiceImpl.deleteUser(userId);
     }

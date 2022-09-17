@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fms.dtos.Booking;
+import com.fms.dtos.User;
 import com.fms.services.BookingServiceImpl;
 
 @RestController
@@ -64,4 +65,5 @@ public class BookingController {
 			bookingService.deleteBooking(bid);
 			return new ResponseEntity<String>("Record Deleted Successfully with Id"+bid,HttpStatus.OK);
 		}
+		
 }

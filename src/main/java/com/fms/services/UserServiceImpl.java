@@ -1,8 +1,10 @@
 package com.fms.services;
 
+import com.fms.dtos.Booking;
 import com.fms.dtos.User;
 import com.fms.exceptions.IdAlreadyExistException;
 import com.fms.exceptions.IdNotFoundException;
+import com.fms.daos.BookingDao;
 import com.fms.daos.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,9 @@ public class UserServiceImpl implements UserService{
     @Autowired
     UserDao userDao;
 
+    @Autowired
+    BookingDao bookingDao;
+    
     @Override
     public User addUser(User newUser)
     {
@@ -27,6 +32,10 @@ public class UserServiceImpl implements UserService{
         {
             throw new IdAlreadyExistException("User with email :" + newUser.getUserEmail() + " already exist.");
         }
+//        List<Booking> bookings= newUser.getBookings();
+//        bookings.forEach(booking->{
+//        	bookingDao.save(booking);
+//        });
         userDao.save(newUser);
         return newUser;
     }

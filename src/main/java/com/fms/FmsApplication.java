@@ -24,6 +24,10 @@ public class FmsApplication {
 	@Bean
 	public CommandLineRunner create()
 	{
+		// Created Constant Variable as value of constant hasbeen used multiple times.
+
+		final String ADMIN = "admin";  // Compliant
+
 		/*
 			* Phone Numbers of admins are typecasted into big integers bacause they are declared as big integers as per the requirement.
 		 */
@@ -35,11 +39,6 @@ public class FmsApplication {
 		BigInteger phone5=BigInteger.valueOf(9666845642L);
 		BigInteger phone6=BigInteger.valueOf(7755918779L);
 		BigInteger phone7=BigInteger.valueOf(7036351827L);
-
-		// Created Constant Variable as value of constant hasbeen used multiple times.
-
-		private static final String ADMIN = "action1";  // Compliant
-
 
 		/*
 			* Admins are created here itself as the application can only create customers who use this application.

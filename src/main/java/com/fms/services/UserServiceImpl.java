@@ -4,6 +4,7 @@ import com.fms.dtos.User;
 import com.fms.exceptions.UserIdAlreadyExistException;
 import com.fms.exceptions.UserIdNotFoundException;
 import com.fms.daos.UserDao;
+import com.fms.exceptions.AdminUserCannotBeDeletedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,13 +49,20 @@ public class UserServiceImpl implements UserService{
     public void deleteUser(BigInteger userId)
     {
         Optional<User> findUserById = userDao.findById(userId);
-        if(findUserById.isPresent())
+        if(this.viewUser(userId).getUserType().equalsIgnoreCase("admin"))
         {
-            userDao.deleteById(userId);
+            throw new AdminUserCannotBeDeletedException(STR+userId+" is an admin so cannot delete.");
         }
         else
         {
-            throw new UserIdNotFoundException(STR+userId+" doesnot exist so cannot delete the user.");
+            if(findUserById.isPresent())
+            {
+                userDao.deleteById(userId);
+            }
+            else
+            {
+                throw new UserIdNotFoundException(STR+userId+" doesnot exist so cannot delete the user.");
+            }
         }
     }
 

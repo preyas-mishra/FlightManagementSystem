@@ -1,67 +1,63 @@
 package com.fms.exceptions;
 
-import java.net.http.HttpResponse.ResponseInfo;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * This is the global exception handler class that gets involked by the springdata
+ * when there occurs an exception at any point of application
+ */
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-	
-	@ExceptionHandler(BookingIdNotFoundException.class)
-    public String handlingMethod(BookingIdNotFoundException e)
-    {
-        return "IdNotFoundException"+":"+e.getMessage();
-    }
-	
-	@ExceptionHandler(IdNotFoundException.class)
-    public String handlerForIdNotFoundException(IdNotFoundException e)
+    @ExceptionHandler(UserIdNotFoundException.class)
+    public String handlerForIdNotFoundException(UserIdNotFoundException e)
     {
         return "IdNotFoundException :"+e.getMessage();
     }
 
-    @ExceptionHandler(IdAlreadyExistException.class)
-    public String handlerForIdAlreadyExistException(IdAlreadyExistException e)
+    @ExceptionHandler(UserIdAlreadyExistException.class)
+    public String handlerForIdAlreadyExistException(UserIdAlreadyExistException e)
     {
         return "IdAlreadyExistException :"+e.getMessage();
     }
-    
+
+    @ExceptionHandler(AdminUserCannotBeDeletedException.class)
+    public String handlerForAdminUserCannotBeDeletedException(AdminUserCannotBeDeletedException e)
+    {
+        return "AdminUserCannotBeDeletedException :"+e.getMessage();
+    }
+
+    @ExceptionHandler(BookingIdNotFoundException.class)
+    public String handlerForBookingIdNotFoundException(BookingIdNotFoundException e)
+    {
+        return "IdNotFoundException"+":"+e.getMessage();
+    }
+
     @ExceptionHandler(NoOfPassengersException.class)
-    public String handlingMethod(NoOfPassengersException e)
+    public String handlerForNoPassengerException(NoOfPassengersException e)
     {
         return "NoOfPassengersException"+":"+e.getMessage();
     }
-//    
-//    @ExceptionHandler(Exception.class)
-//    public ResponseEntity<ResponseInfo> handlerMethodForException(Exception ex,HttpServletRequest request)
-//    {
-//        String message=ex.getMessage();
-//        ResponseInfo ri=new ResponseInfo(HttpStatus.NOT_FOUND.value(),HttpStatus.NOT_FOUND.name(),message,request.getRequestURI());
-//        ResponseEntity<ResponseInfo> re=new ResponseEntity<>(ri,HttpStatus.NOT_FOUND);
-//        return re;
-//    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String,String> handlerMethodForException(MethodArgumentNotValidException ex)
+    public Map<String,String> handlerForMethodArgumentNotValidException(MethodArgumentNotValidException e)
     {
         Map<String,String> errorMessage=new LinkedHashMap<>();
-        List<ObjectError> list=ex.getAllErrors();
+        List<ObjectError> list=e.getAllErrors();
         list.forEach(obj->{
-            FieldError ferr=(FieldError)obj;
-            String fname=ferr.getField();
-            String msg=ferr.getDefaultMessage();
-            errorMessage.put(fname, msg);
+            FieldError fieldError=(FieldError)obj;
+            String fieldName=fieldError.getField();
+            String message=fieldError.getDefaultMessage();
+            errorMessage.put(fieldName, message);
         });
         return errorMessage;
     }
 }
-

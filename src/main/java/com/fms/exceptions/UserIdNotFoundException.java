@@ -5,8 +5,8 @@ package com.fms.exceptions;
  * when the id of the user doesn't gets fetched.
  **/
 
-public class IdNotFoundException extends RuntimeException{
-    public IdNotFoundException(String msg)
+public class UserIdNotFoundException extends RuntimeException{
+    public UserIdNotFoundException(String msg)
     {
         super(msg);
     }

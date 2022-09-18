@@ -28,8 +28,8 @@ public class Booking {
     @OneToMany(mappedBy = "booking",cascade = CascadeType.ALL)
     private List<Passenger>passengerList = new ArrayList<>();
     
-    @OneToOne
-    private Flight flight;
+//    @OneToOne
+//    private Flight flight;
 
 
 	@Min(value = 1, message = "No of Passengers should be in range of 1-4")
@@ -87,11 +87,11 @@ public class Booking {
         this.user = user;
     }
     
-    public Flight getFlight() {
-		return flight;
-	}
-	public void setFlight(Flight flight) {
-		this.flight = flight;
-	}
+//    public Flight getFlight() {
+//		return flight;
+//	}
+//	public void setFlight(Flight flight) {
+//		this.flight = flight;
+//	}
 
 }

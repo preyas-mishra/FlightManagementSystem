@@ -24,8 +24,16 @@ public class GlobalExceptionHandler {
         return "IdNotFoundException"+":"+e.getMessage();
     }
 	
-	@ExceptionHandler(IdNotFoundException.class)
-    public String handlerForIdNotFoundException(IdNotFoundException e)
+	
+	@ExceptionHandler(AdminUserCannotBeDeletedException.class)
+    public String handlerForAdminUserCannotBeDeletedException(AdminUserCannotBeDeletedException e)
+    {
+        return "AdminUserCannotBeDeletedException :"+e.getMessage();
+    }
+	
+	
+	@ExceptionHandler(UserIdNotFoundException.class)
+    public String handlerForIdNotFoundException(UserIdNotFoundException e)
     {
         return "IdNotFoundException :"+e.getMessage();
     }
@@ -40,8 +48,8 @@ public class GlobalExceptionHandler {
 		return "IdNotFoundException"+":"+e.getMessage();
 	}
 
-    @ExceptionHandler(IdAlreadyExistException.class)
-    public String handlerForIdAlreadyExistException(IdAlreadyExistException e)
+    @ExceptionHandler(UserIdAlreadyExistException.class)
+    public String handlerForIdAlreadyExistException(UserIdAlreadyExistException e)
     {
         return "IdAlreadyExistException :"+e.getMessage();
     }

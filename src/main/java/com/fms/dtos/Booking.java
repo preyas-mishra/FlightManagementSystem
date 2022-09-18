@@ -23,12 +23,16 @@ public class Booking {
 	@FutureOrPresent
     private LocalDate bookingDate;
     
+	
     
     @OneToMany(mappedBy = "booking",cascade = CascadeType.ALL)
     private List<Passenger>passengerList = new ArrayList<>();
-//	private Flight flight;
+    
+    @OneToOne
+    private Flight flight;
 
-    @Min(value = 1, message = "No of Passengers should be in range of 1-4")
+
+	@Min(value = 1, message = "No of Passengers should be in range of 1-4")
     @Max(value = 4, message = "No of Passengers should be in range of 1-4")
     private Integer noOfPassengers;
 
@@ -82,4 +86,12 @@ public class Booking {
         this.noOfPassengers = noOfPassengers;
         this.user = user;
     }
+    
+    public Flight getFlight() {
+		return flight;
+	}
+	public void setFlight(Flight flight) {
+		this.flight = flight;
+	}
+
 }

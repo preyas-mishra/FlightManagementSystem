@@ -9,6 +9,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import java.math.BigInteger;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "bookings")
@@ -17,20 +19,26 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private BigInteger bookingId;
 
-    @FutureOrPresent
-    private LocalDate bookingDate;
-//	private List<Passenger>passengerList;
-//	private Flight flight;
 
-    @Min(value = 1, message = "No of Passengers should be in range of 1-4")
+	@FutureOrPresent
+    private LocalDate bookingDate;
+    
+	
+    
+    @OneToMany(mappedBy = "booking",cascade = CascadeType.ALL)
+    private List<Passenger>passengerList = new ArrayList<>();
+    
+    @OneToOne
+    private Flight flight;
+
+
+	@Min(value = 1, message = "No of Passengers should be in range of 1-4")
     @Max(value = 4, message = "No of Passengers should be in range of 1-4")
     private Integer noOfPassengers;
 
     @JsonIgnore
     @ManyToOne
-//    @OneToOne
     @JoinColumn(name="user_id")
-//    @NotEmpty(message = "User id in bookings cannot be null so cannot create booking")
     private User user;
 
     public BigInteger getBookingId() {
@@ -59,6 +67,15 @@ public class Booking {
     public void setUser(User user) {
         this.user = user;
     }
+    public List<Passenger> getPassengerList() {
+		return passengerList;
+	}
+	public void setPassengerList(List<Passenger> passengerList) {
+		this.passengerList = passengerList;
+		for(Passenger temp:passengerList) {
+			temp.setBooking(this);
+		}
+	}
 
     public Booking()
     {}
@@ -69,4 +86,12 @@ public class Booking {
         this.noOfPassengers = noOfPassengers;
         this.user = user;
     }
+    
+    public Flight getFlight() {
+		return flight;
+	}
+	public void setFlight(Flight flight) {
+		this.flight = flight;
+	}
+
 }

@@ -49,8 +49,12 @@ public class BookingServiceImpl implements BookingService{
 			if(booking.getNoOfPassengers()!=null) {
 				prevBooking.setNoOfPassengers(booking.getNoOfPassengers());
 			}
+			if(booking.getPassengerList()!=null) {
+				prevBooking.setPassengerList(booking.getPassengerList());
+			}
 //			Booking booking1=bookingRepository.save(prevBooking);
 //			return new ResponseEntity<Booking>(booking1,HttpStatus.ACCEPTED);
+			
 			return bookingRepository.save(prevBooking);
 		}
 		else {

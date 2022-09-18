@@ -34,6 +34,11 @@ public class GlobalExceptionHandler {
 	public String handlerForBookingAlreadyPresentException(BookingAlreadyPresentException e) {
 		return "BookingAlreadyPresentException :" +e.getMessage();
 	}
+	
+	@ExceptionHandler(PassengerIdNotFoundException.class) 
+	public String handlingMethod(PassengerIdNotFoundException e) {
+		return "IdNotFoundException"+":"+e.getMessage();
+	}
 
     @ExceptionHandler(IdAlreadyExistException.class)
     public String handlerForIdAlreadyExistException(IdAlreadyExistException e)

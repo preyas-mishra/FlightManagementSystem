@@ -19,9 +19,6 @@ public class AirportServiceImpl implements AirportService {
 
 	@Autowired
 	private AirportDao airportRepository;
-	
-	/*@Autowired
-	private ScheduleDao scheduleDao;*/
 
 	@Override
 	public List<Airport> viewAirports()
@@ -41,45 +38,6 @@ public class AirportServiceImpl implements AirportService {
 			throw new AirportIdNotFoundException("Airport not found with airport id: " + airportId);
 	    }
 	}
-
-	
-	/*
-	@Override
-	public Airport addAirport(Airport newAirport)
-    {
-        Optional<Airport> viewAirportByCode=airportRepository.viewAirportByCode(newAirport.getAirportCode());
-        if(viewAirportByCode.isPresent())
-        {
-            throw new AirportIdAlreadyExistException();
-        }
-        return airportRepository.save(newAirport);
-    }
-	
-
-	 @Override
-	 public Airport updateAirport(Airport updateAirport)
-	 {
-		 Optional<Airport> viewAirportById = airportRepository.findById(updateAirport.getAirportId());
-		 if(viewAirportById.isPresent())
-		 {
-	    	 return airportRepository.save(updateAirport);
-	     }
-	     else {
-	    	 throw new  AirportIdNotFoundException(updateAirport.getAirportId()+" doesnot exist so cannot update the user.");
-	    }
-	}
-	 
-	 @Override
-	 public void deleteAirport(Integer airportId) {
-			Optional<Airport> oAirport = airportRepository.findById(airportId);
-			if(oAirport.isPresent()) {
-				airportRepository.deleteById(airportId);
-			}
-			else {
-				throw new AirportIdNotFoundException("Airport Id is not found "+airportId);
-			}
-		}
-	 */
 	
 	@Override
 	public List<Airport> findByAirportCode(String airportCode){

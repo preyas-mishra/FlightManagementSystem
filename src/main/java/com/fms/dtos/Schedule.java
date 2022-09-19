@@ -41,35 +41,22 @@ public class Schedule {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	//@Column(name = "schedule_id")
 	@NotEmpty
 	public BigInteger scheduleId;
 
 	@OneToOne(fetch = FetchType.EAGER,cascade =  CascadeType.ALL)
-	//@JsonIgnore
-	//@ManyToOne(cascade = CascadeType.ALL)
-   // @JoinColumn(name = "airport_name")
-	//@JoinColumn(name = "airport_code")
 	@NotEmpty
 	public Airport srcAirport;
 
 	@OneToOne(fetch = FetchType.EAGER,cascade =  CascadeType.ALL)
-	//@JsonIgnore
-	//@ManyToOne(cascade = CascadeType.ALL)
-   // @JoinColumn(name = "airport_name")
-	//@JoinColumn(name = "airport_code")
 	@NotEmpty
 	public Airport dstnAirport;
 
-
-	//@Column(name = "departure_date")
 	@FutureOrPresent
 	public LocalDateTime deptDateTime;
 
-	//@Column(name = "arrival_date")
 	@FutureOrPresent
 	public LocalDateTime arrDateTime;
-	
 	
 
 	public BigInteger getScheduleId() {
@@ -111,7 +98,5 @@ public class Schedule {
 	public void setArrDateTime(LocalDateTime arrDateTime) {
 		this.arrDateTime = arrDateTime;
 	}
-
-
 
 }

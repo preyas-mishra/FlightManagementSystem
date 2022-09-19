@@ -13,11 +13,6 @@ import com.fms.dtos.Airport;
 @Repository("airportRepository")
 public interface AirportDao extends JpaRepository<Airport, Integer>{
 	
-
-	//public Optional<Airport> viewAirportByCode(String airportCode);
 	public List<Airport> findByAirportCode(String airportCode);
-	
-	//public Airport findAirportByAirportCode(String airportCode);
-
 	
 }

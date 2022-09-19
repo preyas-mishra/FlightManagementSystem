@@ -26,9 +26,6 @@ public class ScheduleServiceImpl implements ScheduleService {
 	@Autowired
 	private AirportDao airportRepository;
 	
-	/*@Autowired
-	private ScheduledFlightDao scheduledFlightRepository;*/
-	
 	@Override
 	public Schedule addSchedule(Schedule schedule) {
 		return scheduleRepository.save(schedule);

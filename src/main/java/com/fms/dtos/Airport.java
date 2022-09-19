@@ -24,6 +24,7 @@ public class Airport {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	public Airport(@NotEmpty(message = "airport Id cannot be empty") int airportId,
 			@NotEmpty(message = "airport Name cannot be empty") String airportName,
 			@NotEmpty(message = "airport Location cannot be empty") String airportLocation,
@@ -34,6 +35,7 @@ public class Airport {
 		this.airportLocation = airportLocation;
 		this.airportCode = airportCode;
 	}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@NotEmpty(message="airport Id cannot be empty")
@@ -44,11 +46,6 @@ public class Airport {
 	public String airportLocation;
 	@NotEmpty(message="airportCode cannot be empty")
 	public String airportCode;	
-	
-	//@JsonIgnore
-	//@OneToMany(mappedBy = "airport", cascade = CascadeType.ALL)
-	//private List<Schedule> schedules = new ArrayList<>();
-	
 	
 
 	public int getAirportId() {
@@ -75,12 +72,5 @@ public class Airport {
 	public void setAirportCode(String airportCode) {
 		this.airportCode = airportCode;
 	}
-	/*public List<Schedule> getSchedules() {
-		return schedules;
-	}
-	public void setSchedules(List<Schedule> schedules) {
-		this.schedules = schedules;
-	}*/
 	
-
 }

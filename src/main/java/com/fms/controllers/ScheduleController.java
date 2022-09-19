@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fms.dtos.Schedule;
 import com.fms.services.AirportServiceImpl;
 import com.fms.services.ScheduleService;
-import com.fms.services.ScheduledFlightServiceImpl;
 
 @RestController
 public class ScheduleController {
@@ -29,9 +28,6 @@ public class ScheduleController {
 	
 	@Autowired
 	AirportServiceImpl airportService ;
-	
-	@Autowired
-    ScheduledFlightServiceImpl scheduledFlightService;
 	
 	@PostMapping("/schedules")
 	public ResponseEntity<Schedule> addSchedule(@Valid @RequestBody Schedule schedule) {
@@ -51,13 +47,13 @@ public class ScheduleController {
 	}
 	
 	@DeleteMapping("/schedules/{scheduleId}")
-	public ResponseEntity<String> deleteSchedule(@PathVariable("scheduleId") BigInteger scheduleId) {
+	public ResponseEntity<String> deleteSchedule(@PathVariable("scheduleId") Integer scheduleId) {
 		scheduleService.deleteSchedule(scheduleId);
 		return new ResponseEntity<String>("Record Deleted Successfully with Id"+scheduleId,HttpStatus.OK);
 	}
 	
 	@GetMapping("/schedules/{scheduleId}")
-	public Schedule viewSchedule(@PathVariable("scheduleId") BigInteger scheduleId){
+	public Schedule viewSchedule(@PathVariable("scheduleId") Integer scheduleId){
 		return scheduleService.viewSchedule(scheduleId);
 	}
 

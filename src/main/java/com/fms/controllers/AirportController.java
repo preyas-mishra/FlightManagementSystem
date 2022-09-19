@@ -27,8 +27,8 @@ public class AirportController {
 	@Autowired
 	AirportService airportService ;
 	
-	@Autowired
-    ScheduleServiceImpl scheduleService;
+	/*@Autowired
+    ScheduleServiceImpl scheduleService;*/
 	
 	@GetMapping("/airports")
 	public List<Airport> viewAirports() {
@@ -41,7 +41,7 @@ public class AirportController {
 		return airportService.viewAirportById(airportId);
 	}
 	
-	
+/*
 	@PostMapping("/airports")
     public ResponseEntity<Airport> addAirport(@Valid @RequestBody Airport newAirport)
     {
@@ -49,6 +49,7 @@ public class AirportController {
         return new ResponseEntity<>(airport,HttpStatus.CREATED);
     }
 
+	
     @PutMapping("/airports")
     public ResponseEntity<Airport> updateAirport(@Valid @RequestBody Airport updateAirport)
     {
@@ -62,4 +63,5 @@ public class AirportController {
     	airportService.deleteAirport(airportId);
 		return new ResponseEntity<String>("Airport Deleted Successfully with Id"+airportId,HttpStatus.OK);
 	}
+	*/
 }

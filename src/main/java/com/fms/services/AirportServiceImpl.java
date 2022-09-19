@@ -9,9 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fms.daos.AirportDao;
-import com.fms.daos.ScheduleDao;
 import com.fms.dtos.Airport;
-import com.fms.exceptions.AirportIdAlreadyExistException;
+//import com.fms.exceptions.AirportIdAlreadyExistException;
 import com.fms.exceptions.AirportIdNotFoundException;
 
 @Transactional
@@ -21,8 +20,8 @@ public class AirportServiceImpl implements AirportService {
 	@Autowired
 	private AirportDao airportRepository;
 	
-	@Autowired
-	private ScheduleDao scheduleDao;
+	/*@Autowired
+	private ScheduleDao scheduleDao;*/
 
 	@Override
 	public List<Airport> viewAirports()
@@ -42,18 +41,21 @@ public class AirportServiceImpl implements AirportService {
 			throw new AirportIdNotFoundException("Airport not found with airport id: " + airportId);
 	    }
 	}
+
 	
+	/*
 	@Override
 	public Airport addAirport(Airport newAirport)
     {
         Optional<Airport> viewAirportByCode=airportRepository.viewAirportByCode(newAirport.getAirportCode());
         if(viewAirportByCode.isPresent())
         {
-            throw new AirportIdAlreadyExistException("Airport with code :" + newAirport.getAirportCode() + " already exist.");
+            throw new AirportIdAlreadyExistException();
         }
         return airportRepository.save(newAirport);
     }
 	
+
 	 @Override
 	 public Airport updateAirport(Airport updateAirport)
 	 {
@@ -77,4 +79,9 @@ public class AirportServiceImpl implements AirportService {
 				throw new AirportIdNotFoundException("Airport Id is not found "+airportId);
 			}
 		}
+	 */
+	
+
+	
+	 
 }

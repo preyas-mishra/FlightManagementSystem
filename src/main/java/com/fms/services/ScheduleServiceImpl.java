@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.fms.daos.AirportDao;
 import com.fms.daos.ScheduleDao;
-import com.fms.daos.ScheduledFlightDao;
 import com.fms.dtos.Airport;
 import com.fms.dtos.Schedule;
 import com.fms.exceptions.ScheduleIdNotFoundException;
@@ -27,8 +26,8 @@ public class ScheduleServiceImpl implements ScheduleService {
 	@Autowired
 	private AirportDao airportRepository;
 	
-	@Autowired
-	private ScheduledFlightDao scheduledFlightRepository;
+	/*@Autowired
+	private ScheduledFlightDao scheduledFlightRepository;*/
 	
 	@Override
 	public Schedule addSchedule(Schedule schedule) {
@@ -65,7 +64,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 		}		
 	}
 	
-	public void deleteSchedule(BigInteger scheduleId) {
+	public void deleteSchedule(Integer scheduleId) {
 		Optional<Schedule> oSchedule = scheduleRepository.findById(scheduleId);
 		if(oSchedule.isPresent()) {
 			scheduleRepository.deleteById(scheduleId);;
@@ -75,7 +74,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 		}
 	}
 	
-	public Schedule viewSchedule(BigInteger scheduleId) {
+	public Schedule viewSchedule(Integer scheduleId) {
 		Optional<Schedule> oSchedule = scheduleRepository.findById(scheduleId);
 		if(oSchedule.isPresent()) {
 			return oSchedule.get();

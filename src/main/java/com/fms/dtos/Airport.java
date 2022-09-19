@@ -31,9 +31,9 @@ public class Airport {
 	@NotEmpty(message="airportCode cannot be empty")
 	public String airportCode;	
 	
-	@JsonIgnore
-	@OneToMany(mappedBy = "airport", cascade = CascadeType.ALL)
-	private List<Schedule> schedules = new ArrayList<>();
+	//@JsonIgnore
+	//@OneToMany(mappedBy = "airport", cascade = CascadeType.ALL)
+	//private List<Schedule> schedules = new ArrayList<>();
 	
 	
 	public int getAirportId() {
@@ -60,12 +60,12 @@ public class Airport {
 	public void setAirportCode(String airportCode) {
 		this.airportCode = airportCode;
 	}
-	public List<Schedule> getSchedules() {
+	/*public List<Schedule> getSchedules() {
 		return schedules;
 	}
 	public void setSchedules(List<Schedule> schedules) {
 		this.schedules = schedules;
-	}
+	}*/
 	
 
 }

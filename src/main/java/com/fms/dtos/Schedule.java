@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.FutureOrPresent;
@@ -27,44 +28,40 @@ public class Schedule {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	//@Column(name = "schedule_id")
 	@NotEmpty
-    @Digits(integer = 05,fraction = 0, message = "Please provide a 5 digit Schedule ID.")
-	private BigInteger scheduleId;
+	public Integer scheduleId;
 
-	//@OneToOne(fetch = FetchType.EAGER)
-	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "airport_name")
-	@JoinColumn(name = "airport_code")
+	@OneToOne(fetch = FetchType.EAGER,cascade =  CascadeType.ALL)
+	//@JsonIgnore
+	//@ManyToOne(cascade = CascadeType.ALL)
+   // @JoinColumn(name = "airport_name")
+	//@JoinColumn(name = "airport_code")
 	@NotEmpty
-	private Airport srcAirport;
+	public Airport srcAirport;
 
-	//@OneToOne(fetch = FetchType.EAGER)
-	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "airport_name")
-	@JoinColumn(name = "airport_code")
+	@OneToOne(fetch = FetchType.EAGER,cascade =  CascadeType.ALL)
+	//@JsonIgnore
+	//@ManyToOne(cascade = CascadeType.ALL)
+   // @JoinColumn(name = "airport_name")
+	//@JoinColumn(name = "airport_code")
 	@NotEmpty
-	private Airport dstnAirport;
+	public Airport dstnAirport;
 
 
 	//@Column(name = "departure_date")
 	@FutureOrPresent
-	private LocalDateTime deptDateTime;
+	public LocalDateTime deptDateTime;
 
 	//@Column(name = "arrival_date")
 	@FutureOrPresent
-	private LocalDateTime arrDateTime;
-
+	public LocalDateTime arrDateTime;
+	
 	
 
-	/*
-	 * Getters and setters
-	 */
-	public BigInteger getScheduleId() {
+	public Integer getScheduleId() {
 		return scheduleId;
 	}
 
-	public void setScheduleId(BigInteger scheduleId) {
+	public void ScheduleId(Integer scheduleId) {
 		this.scheduleId = scheduleId;
 	}
 
@@ -100,7 +97,5 @@ public class Schedule {
 		this.arrDateTime = arrDateTime;
 	}
 
-	
-	
 
 }

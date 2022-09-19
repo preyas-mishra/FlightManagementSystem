@@ -14,7 +14,7 @@ public interface ScheduleService {
 	//update
 	public Schedule modifySchedule(Schedule schedule);
 	//delete
-	public void deleteSchedule(Integer scheduleId);
+	public void deleteSchedule(BigInteger scheduleId);
 	//viewById
-	public Schedule viewSchedule(Integer scheduleId);
+	public Schedule viewSchedule(BigInteger scheduleId);
 }

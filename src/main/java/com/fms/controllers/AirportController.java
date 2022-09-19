@@ -41,6 +41,11 @@ public class AirportController {
 		return airportService.viewAirportById(airportId);
 	}
 	
+	@GetMapping("/airports/{airportCode}")
+	public List<Airport> findByAirportCode(@PathVariable("airportCode") String airportCode){
+		return airportService.findByAirportCode(airportCode);
+	}
+	
 /*
 	@PostMapping("/airports")
     public ResponseEntity<Airport> addAirport(@Valid @RequestBody Airport newAirport)
@@ -64,4 +69,6 @@ public class AirportController {
 		return new ResponseEntity<String>("Airport Deleted Successfully with Id"+airportId,HttpStatus.OK);
 	}
 	*/
+	
+	
 }

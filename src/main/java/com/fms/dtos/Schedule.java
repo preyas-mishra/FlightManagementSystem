@@ -28,7 +28,7 @@ public class Schedule {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	//@Column(name = "schedule_id")
 	@NotEmpty
-	public Integer scheduleId;
+	public BigInteger scheduleId;
 
 	@OneToOne(fetch = FetchType.EAGER,cascade =  CascadeType.ALL)
 	//@JsonIgnore
@@ -57,11 +57,11 @@ public class Schedule {
 	
 	
 
-	public Integer getScheduleId() {
+	public BigInteger getScheduleId() {
 		return scheduleId;
 	}
 
-	public void ScheduleId(Integer scheduleId) {
+	public void ScheduleId(BigInteger scheduleId) {
 		this.scheduleId = scheduleId;
 	}
 

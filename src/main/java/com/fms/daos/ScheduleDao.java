@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.fms.dtos.Schedule;
 
 @Repository("scheduleRepository")
-public interface ScheduleDao extends JpaRepository<Schedule, Integer> {
+public interface ScheduleDao extends JpaRepository<Schedule, BigInteger> {
 
 }

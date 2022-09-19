@@ -81,7 +81,12 @@ public class AirportServiceImpl implements AirportService {
 		}
 	 */
 	
-
+	@Override
+	public List<Airport> findByAirportCode(String airportCode){
+		List<Airport> airports=airportRepository.findByAirportCode("HYD");
+		airports.forEach(e->System.out.println(e));	
+		return airports;
+	}
 	
 	 
 }

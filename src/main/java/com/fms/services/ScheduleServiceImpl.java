@@ -64,7 +64,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 		}		
 	}
 	
-	public void deleteSchedule(Integer scheduleId) {
+	public void deleteSchedule(BigInteger scheduleId) {
 		Optional<Schedule> oSchedule = scheduleRepository.findById(scheduleId);
 		if(oSchedule.isPresent()) {
 			scheduleRepository.deleteById(scheduleId);;
@@ -74,7 +74,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 		}
 	}
 	
-	public Schedule viewSchedule(Integer scheduleId) {
+	public Schedule viewSchedule(BigInteger scheduleId) {
 		Optional<Schedule> oSchedule = scheduleRepository.findById(scheduleId);
 		if(oSchedule.isPresent()) {
 			return oSchedule.get();

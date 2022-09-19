@@ -13,6 +13,7 @@ public interface AirportService {
 	//view by airportCode
 	//public Airport findAirportByAirportCode(String airportCode);
 	//Optional<Airport> viewAirportByCode(String airportCode);
+	public List<Airport> findByAirportCode(String airportCode);
 	
 	/*
 	public Airport addAirport(Airport newAirport);

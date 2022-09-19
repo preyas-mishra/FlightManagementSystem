@@ -47,13 +47,13 @@ public class ScheduleController {
 	}
 	
 	@DeleteMapping("/schedules/{scheduleId}")
-	public ResponseEntity<String> deleteSchedule(@PathVariable("scheduleId") Integer scheduleId) {
+	public ResponseEntity<String> deleteSchedule(@PathVariable("scheduleId") BigInteger scheduleId) {
 		scheduleService.deleteSchedule(scheduleId);
 		return new ResponseEntity<String>("Record Deleted Successfully with Id"+scheduleId,HttpStatus.OK);
 	}
 	
 	@GetMapping("/schedules/{scheduleId}")
-	public Schedule viewSchedule(@PathVariable("scheduleId") Integer scheduleId){
+	public Schedule viewSchedule(@PathVariable("scheduleId") BigInteger scheduleId){
 		return scheduleService.viewSchedule(scheduleId);
 	}
 

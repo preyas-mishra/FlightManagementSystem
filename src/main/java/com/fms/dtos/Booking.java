@@ -39,7 +39,7 @@ public class Booking {
     @Max(value = 4, message = "No of Passengers should be in range of 1-4")
     private Integer noOfPassengers;
 
-    @JsonIgnore
+    
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;

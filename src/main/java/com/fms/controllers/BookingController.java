@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fms.daos.BookingDao;
 import com.fms.dtos.Booking;
 import com.fms.dtos.User;
 import com.fms.services.BookingServiceImpl;
@@ -28,6 +29,9 @@ public class BookingController {
 	
 		@Autowired
 		private BookingServiceImpl bookingService;
+		
+		@Autowired
+		private BookingDao bookingDao;
 		
 		@Autowired 
 		private UserServiceImpl userService;
@@ -81,4 +85,9 @@ public class BookingController {
 			bookingService.deleteBooking(bid);
 			return new ResponseEntity<String>("Record Deleted Successfully with Id"+bid,HttpStatus.OK);
 		}
-}
+		
+		@GetMapping("/user/bookings/{userId}")
+		public List<Booking> viewBookingsByUserId(@PathVariable("userId")BigInteger userId){
+			return bookingDao.findBookingsByUserId(userId);
+		}
+}	

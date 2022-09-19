@@ -1,6 +1,7 @@
 package com.fms.dtos;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -41,6 +42,7 @@ public class User {
 //    @OneToOne(cascade = CascadeType.ALL)
 //    private Booking booking;
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @Valid
     private List<Booking> booking=new ArrayList<>();
 
     /**

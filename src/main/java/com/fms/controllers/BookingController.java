@@ -1,6 +1,7 @@
 package com.fms.controllers;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fms.dtos.Booking;
+import com.fms.dtos.User;
 import com.fms.services.BookingServiceImpl;
+import com.fms.services.UserServiceImpl;
 
 @RestController
 public class BookingController {
@@ -26,12 +29,26 @@ public class BookingController {
 		@Autowired
 		private BookingServiceImpl bookingService;
 		
+		@Autowired 
+		private UserServiceImpl userService;
+		
 		private List<Booking>bookingList;
 		
 		
+		@PostMapping("/bookingsbyuser/{userId}")
+		public ResponseEntity<User> addBookingByUserId(@Valid @RequestBody Booking booking,@PathVariable("userId") BigInteger userId){
+			User user = userService.viewUser(userId);
+			List<Booking>bookingList1 = user.getBooking();
+			booking.setUser(user);
+			booking.setTicketCost(300.00);
+			bookingList1.add(booking);
+			user.setBooking(bookingList1);
+			return new ResponseEntity<>(user,HttpStatus.OK);
+		}
+		
 		@PostMapping("/bookings")
 		public ResponseEntity<Booking> addBooking(@Valid @RequestBody Booking booking) {
-//		Creates a new booking.
+		//		Creates a new booking.
 			Booking booking1=bookingService.addBooking(booking);
 			return new ResponseEntity<>(booking1,HttpStatus.OK);
 		}

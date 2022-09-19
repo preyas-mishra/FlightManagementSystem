@@ -28,6 +28,8 @@ import com.fms.services.FlightService;
 import com.fms.services.ScheduledFlightService;
 
 @RestController
+@CrossOrigin(origins = "", allowedHeaders = "")
+@RequestMapping("/sf")
 public class ScheduledFlightController {
 	
 	@Autowired
@@ -38,47 +40,30 @@ public class ScheduledFlightController {
 
 	@Autowired
 	FlightService flightService;
-	@PostMapping("/scheduledflight")
-	public ResponseEntity<ScheduledFlight> addSF(@RequestBody ScheduledFlight scheduledFlight)
-//			@ModelAttribute ScheduledFlight scheduledFlight,
-//			@RequestParam(name = "srcAirport") String source,
-//			@RequestParam(name = "dstnAirport") String destination,
-//			@RequestParam(name = "deptDateTime") String departureTime,
-//			@RequestParam(name = "arrDateTime") String arrivalTime 
-	{		
+	@PostMapping("/add")
+	public ResponseEntity<ScheduledFlight> addSF(@ModelAttribute ScheduledFlight scheduledFlight)
+			
 		
-		scheduleFlightService.addScheduledFlight(scheduledFlight);
-		return new ResponseEntity<ScheduledFlight>(scheduledFlight,HttpStatus.OK);
-		//		Schedule schedule = new Schedule();
-//		schedule.setScheduleId(scheduledFlight.getScheduleFlightId());
-//		try {
-//			schedule.setSrcAirport(airportService.viewAirport(source));
-//		} catch (RecordNotFoundException e) {
-//			return new ResponseEntity("Airport Not Found", HttpStatus.BAD_REQUEST);
-//		}
-//		try {	
-//			schedule.setDstnAirport(airportService.viewAirport(destination));
-//		} catch (RecordNotFoundException e) {
-//			return new ResponseEntity("Airport Not Found", HttpStatus.BAD_REQUEST);
-//		}
-//		schedule.setDeptDateTime(departureTime);
-//		schedule.setArrDateTime(arrivalTime);
-//		try {
-//			scheduledFlight.setFlight(flightService.viewFlight(scheduledFlight.getScheduleFlightId()));
-//		} catch (RecordNotFoundException e1) {
-//			return new ResponseEntity("Flight Not Found", HttpStatus.BAD_REQUEST);
-//		}
-//		scheduledFlight.setSchedule(schedule);
-//		scheduledFlight.setAvailableSeats(scheduledFlight.getFlight().getSeatCapacity());
-//		try {
-//			return new ResponseEntity<ScheduledFlight>(scheduleFlightService.addScheduledFlight(scheduledFlight),HttpStatus.OK);
-//		} catch (Exception e) {
-//			return new ResponseEntity("Error adding Flight." + e, HttpStatus.BAD_REQUEST);
-//		}
+	{		
+		Schedule schedule = new Schedule();
+		schedule.setScheduleId(scheduledFlight.getScheduleFlightId());
+		
+		try {
+			scheduledFlight.setFlight(flightService.viewFlight(scheduledFlight.getScheduleFlightId()));
+		} catch (RecordNotFoundException e1) {
+			return new ResponseEntity("Flight Not Found", HttpStatus.BAD_REQUEST);
+		}
+		scheduledFlight.setSchedule(schedule);
+		scheduledFlight.setAvailableSeats(scheduledFlight.getFlight().getSeatCapacity());
+		try {
+			return new ResponseEntity<ScheduledFlight>(scheduleFlightService.addScheduledFlight(scheduledFlight),HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity("Error adding Flight." + e, HttpStatus.BAD_REQUEST);
+		}
 	}
 
 	
-	@PutMapping("/scheduledflight")
+	@PutMapping("/modify")
 	public ResponseEntity<ScheduledFlight> modifyScheduleFlight(@ModelAttribute ScheduledFlight scheduleFlight) 
 	{
 		ScheduledFlight modifySFlight = scheduleFlightService.modifyScheduledFlight(scheduleFlight);
@@ -93,13 +78,13 @@ public class ScheduledFlightController {
 
 	}
 
-	@DeleteMapping("/scheduledflight/{flightId}")
+	@DeleteMapping("/delete/{flightId}")
 	public String deleteSF(@RequestParam BigInteger flightId) throws RecordNotFoundException
 	{
 		return scheduleFlightService.removeScheduledFlight(flightId);
 	}
 
-	@GetMapping("/scheduledflight/{flightid}")
+	@GetMapping("/search")
 	@ExceptionHandler(ScheduledFlightNotFoundException.class)
 	public ResponseEntity<ScheduledFlight> viewSF(@RequestParam BigInteger flightId) throws ScheduledFlightNotFoundException {
 		ScheduledFlight searchSFlight = scheduleFlightService.viewScheduledFlight(flightId);
@@ -110,10 +95,10 @@ public class ScheduledFlightController {
 		}
 	}
 	
-//	@GetMapping("/scheduledflight")
-//	public Iterable<ScheduledFlight> viewAllSF() {
-//		return scheduleFlightService.viewAllScheduledFlights();
-//	}
+	@GetMapping("/viewAll")
+	public Iterable<ScheduledFlight> viewAllSF() {
+		return scheduleFlightService.viewAllScheduledFlights();
+	}
 	
 
 }

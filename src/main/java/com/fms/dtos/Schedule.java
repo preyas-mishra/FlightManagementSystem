@@ -2,65 +2,61 @@ package com.fms.dtos;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.NotEmpty;
 
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.ResponseEntity;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "schedules")
 public class Schedule {
+	
 	@Id
-	@Column(name = "schedule_Id")
-	private BigInteger scheduleId;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	//@Column(name = "schedule_id")
+	@NotEmpty
+	public BigInteger scheduleId;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	private Airport srcAirport;
+	@OneToOne(fetch = FetchType.EAGER,cascade =  CascadeType.ALL)
+	//@JsonIgnore
+	//@ManyToOne(cascade = CascadeType.ALL)
+   // @JoinColumn(name = "airport_name")
+	//@JoinColumn(name = "airport_code")
+	@NotEmpty
+	public Airport srcAirport;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	private Airport dstnAirport;
+	@OneToOne(fetch = FetchType.EAGER,cascade =  CascadeType.ALL)
+	//@JsonIgnore
+	//@ManyToOne(cascade = CascadeType.ALL)
+   // @JoinColumn(name = "airport_name")
+	//@JoinColumn(name = "airport_code")
+	@NotEmpty
+	public Airport dstnAirport;
 
-	@Column(name = "departure_date")
-//	@JsonFormat(pattern = "mm-dd-yyyy HH:mm:ss")
-	private String deptDateTime;
 
-	@Column(name = "arrival_date")
-//	@JsonFormat(pattern = "mm-dd-yyyy HH:mm:ss")
-	private String arrDateTime;
+	//@Column(name = "departure_date")
+	@FutureOrPresent
+	public LocalDateTime deptDateTime;
 
-	/*
-	 * Default constructor
-	 */
-	public Schedule() {
+	//@Column(name = "arrival_date")
+	@FutureOrPresent
+	public LocalDateTime arrDateTime;
+	
+	
 
-	}
-
-	/*
-	 * Parameterized constructor
-	 */
-	public Schedule(BigInteger scheduleId, Airport srcAirport, Airport dstnAirport,
-			String deptDateTime, String arrDateTime) {
-		super();
-		this.scheduleId = scheduleId;
-		this.srcAirport = srcAirport;
-		this.dstnAirport = dstnAirport;
-		this.deptDateTime = deptDateTime;
-		this.arrDateTime = arrDateTime;
-	}
-
-	/*
-	 * Getters and setters
-	 */
 	public BigInteger getScheduleId() {
 		return scheduleId;
 	}
@@ -85,76 +81,21 @@ public class Schedule {
 		this.dstnAirport = dstnAirport;
 	}
 
-	public String getDeptDateTime() {
+	public LocalDateTime getDeptDateTime() {
 		return deptDateTime;
 	}
 
-	public void setDeptDateTime(String deptDateTime) {
+	public void setDeptDateTime(LocalDateTime deptDateTime) {
 		this.deptDateTime = deptDateTime;
 	}
 
-	public String getArrDateTime() {
+	public LocalDateTime getArrDateTime() {
 		return arrDateTime;
 	}
 
-	public void setArrDateTime(String arrDateTime) {
+	public void setArrDateTime(LocalDateTime arrDateTime) {
 		this.arrDateTime = arrDateTime;
 	}
 
-	@Override
-	public String toString() {
-		return "Schedule [scheduleId=" + scheduleId + ", sourceAirport=" + srcAirport + ", destinationAirport="
-				+ dstnAirport + ", departureDateTime=" + deptDateTime + ", arrivalDateTime="
-				+ arrDateTime + "]";
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((arrDateTime == null) ? 0 : arrDateTime.hashCode());
-		result = prime * result + ((deptDateTime == null) ? 0 : deptDateTime.hashCode());
-		result = prime * result + ((dstnAirport == null) ? 0 : dstnAirport.hashCode());
-		result = prime * result + ((scheduleId == null) ? 0 : scheduleId.hashCode());
-		result = prime * result + ((srcAirport == null) ? 0 : srcAirport.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Schedule other = (Schedule) obj;
-		if (arrDateTime == null) {
-			if (other.arrDateTime != null)
-				return false;
-		} else if (!arrDateTime.equals(other.arrDateTime))
-			return false;
-		if (deptDateTime == null) {
-			if (other.deptDateTime != null)
-				return false;
-		} else if (!deptDateTime.equals(other.deptDateTime))
-			return false;
-		if (dstnAirport == null) {
-			if (other.dstnAirport != null)
-				return false;
-		} else if (!dstnAirport.equals(other.dstnAirport))
-			return false;
-		if (scheduleId == null) {
-			if (other.scheduleId != null)
-				return false;
-		} else if (!scheduleId.equals(other.scheduleId))
-			return false;
-		if (srcAirport == null) {
-			if (other.srcAirport != null)
-				return false;
-		} else if (!srcAirport.equals(other.srcAirport))
-			return false;
-		return true;
-	}
 
 }

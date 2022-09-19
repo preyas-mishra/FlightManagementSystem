@@ -62,7 +62,7 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 			throw new RecordNotFoundException("Enter a valid Flight Id");
 		else {
 			// try {
-			// cancelBookings(flightId);
+// cancelBookings(flightId);
 			// } catch (RecordNotFoundException e) {
 			// System.out.println("No Bookings Found");
 			// }

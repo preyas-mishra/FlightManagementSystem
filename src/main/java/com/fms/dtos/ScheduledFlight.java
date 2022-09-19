@@ -26,12 +26,21 @@ public class ScheduledFlight {
 	@Column(name = "available_seats")
 	@NotNull
 	private Integer availableSeats;
-
-	@NotNull
+//	@NotNull
 	@OneToOne(cascade = CascadeType.ALL)
 	private Schedule schedule;
 	
+	private double ticketCost;
 	
+	
+	public double getTicketCost() {
+		return ticketCost;
+	}
+
+	public void setTicketCost(double ticketCost) {
+		this.ticketCost = ticketCost;
+	}
+
 	public ScheduledFlight() {
 
 	}
@@ -43,7 +52,7 @@ public class ScheduledFlight {
 			Schedule schedule) {
 		super();
 		this.scheduleFlightId = scheduleFlightId;
-		this.flight = flight;
+//		this.flight = flight;
 		this.availableSeats = availableSeats;
 		this.schedule = schedule;
 	}

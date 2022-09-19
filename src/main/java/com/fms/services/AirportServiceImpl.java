@@ -1,103 +1,88 @@
 package com.fms.services;
 
-import com.fms.services.AirportService;
 import java.math.BigInteger;
+import java.util.List;
 import java.util.Optional;
 
-import com.fms.dtos.Airport;
-import com.fms.dtos.Flight;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.fms.daos.AirportDao;
-import com.fms.exceptions.RecordAlreadyPresentException;
-import com.fms.exceptions.RecordNotFoundException;
+import com.fms.dtos.Airport;
+//import com.fms.exceptions.AirportIdAlreadyExistException;
+import com.fms.exceptions.AirportIdNotFoundException;
 
-@Service
+@Transactional
+@Service("airportService")
 public class AirportServiceImpl implements AirportService {
+
 	@Autowired
-	AirportDao airportDao;
+	private AirportDao airportRepository;
+	
+	private List<Airport>airportList;
+	/*@Autowired
+	private ScheduleDao scheduleDao;*/
 
-	/*
-	 * view all Airports
-	 */
-	@Override
-	public Iterable<Airport> viewAllAirport() {
-		return airportDao.findAll();
+	public List<Airport> viewAirports()
+	{
+		airportList = airportRepository.findAll();
+		return airportList;
 	}
-
-	/*
-	 * view airport by airportCode
-	 */
+		
 	@Override
-	public Airport viewAirport(Long airportCode) {
-		Optional<Airport> findById = airportDao.findById(airportCode);
+	public Airport viewAirportById(BigInteger airportId)
+	{
+		Optional<Airport> findById = airportRepository.findById(airportId);
 		if (findById.isPresent()) {
 			return findById.get();
-		}
-			
-			//return new ResponseEntity<Airport>(airport, HttpStatus.OK)}
+		}			
 		else
-			throw new RecordNotFoundException("Airport with airport code: " + airportCode + "not exists");
+		{
+			throw new AirportIdNotFoundException("Airport not found with airport id: " + airportId);
 	    }
-		/*catch(RecordNotFoundException e)
-		{
-			return new ResponseEntity(e.getMessage(),HttpStatus.NOT_FOUND);
-		}
-        }*/
+	}
 
+	
 	/*
-	 * add a airport
-	 */
 	@Override
-	public ResponseEntity<?> addAirport(Airport airport) {
-		Optional<Airport> findById = airportDao.findById(airport.getAirportId());
-		try {
-		if (!findById.isPresent()) {
-			
-			airportDao.save(airport);
-			return new ResponseEntity<Airport>(airport,HttpStatus.OK);
-		} 
-		else
-			throw new RecordAlreadyPresentException(
-					"Airport with code : " + airport.getAirportCode() + " already present");
+	public Airport addAirport(Airport newAirport)
+    {
+        Optional<Airport> viewAirportByCode=airportRepository.viewAirportByCode(newAirport.getAirportCode());
+        if(viewAirportByCode.isPresent())
+        {
+            throw new AirportIdAlreadyExistException();
+        }
+        return airportRepository.save(newAirport);
+    }
+	
+	 @Override
+	 public Airport updateAirport(Airport updateAirport)
+	 {
+		 Optional<Airport> viewAirportById = airportRepository.findById(updateAirport.getAirportId());
+		 if(viewAirportById.isPresent())
+		 {
+	    	 return airportRepository.save(updateAirport);
 	     }
-		catch(RecordAlreadyPresentException e)
-		{
-			return new ResponseEntity<Airport>(airport,HttpStatus.NOT_FOUND);
+	     else {
+	    	 throw new  AirportIdNotFoundException(updateAirport.getAirportId()+" doesnot exist so cannot update the user.");
+	    }
+	}
+	 
+	 @Override
+	 public void deleteAirport(Integer airportId) {
+			Optional<Airport> oAirport = airportRepository.findById(airportId);
+			if(oAirport.isPresent()) {
+				airportRepository.deleteById(airportId);
+			}
+			else {
+				throw new AirportIdNotFoundException("Airport Id is not found "+airportId);
+			}
 		}
-	}
-
-	/*
-	 * modify an Airport
 	 */
-	@Override
-	public Airport modifyAirport(Airport airport) {
-		Optional<Airport> findById = airportDao.findById(airport.getAirportId());
-		if (findById.isPresent()) {
-			airportDao.save(airport);
-		} 
-		else
-			throw new RecordNotFoundException("Airport with code: " + airport.getAirportCode() + " not exists");
-		return airport;
-	}
+	
 
-	/*
-	 * remove an airport
-	 */
-	@Override
-	public String removeAirport(Long airportCode) {
-		Optional<Airport> findById = airportDao.findById(airportCode);
-		if (findById.isPresent()) {
-			airportDao.deleteById(airportCode);
-			return "Airport removed";
-		} else
-			throw new RecordNotFoundException("Airport with code: " + airportCode + " not exists");
-
-	}
+	
+	 
 }

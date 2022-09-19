@@ -20,8 +20,5 @@ public interface BookingService {
 	
 	public void deleteBooking(BigInteger bid);
 	
-	public void validateBooking(Booking bid); // Pending
-	
-	public void validatePassenger(Passenger pid); // Pending
 	
 }

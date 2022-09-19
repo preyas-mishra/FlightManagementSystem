@@ -3,6 +3,7 @@ package com.fms.dtos;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -24,12 +25,14 @@ public class Booking {
     private LocalDate bookingDate;
     
 	
+	private Double ticketCost;
     
     @OneToMany(mappedBy = "booking",cascade = CascadeType.ALL)
+    @Valid
     private List<Passenger>passengerList = new ArrayList<>();
     
     @OneToOne
-    private Flight flight;
+    private ScheduledFlight scheduledFlight;
 
 
 	@Min(value = 1, message = "No of Passengers should be in range of 1-4")
@@ -67,7 +70,15 @@ public class Booking {
     public void setUser(User user) {
         this.user = user;
     }
-    public List<Passenger> getPassengerList() {
+    
+    
+    public Double getTicketCost() {
+		return ticketCost;
+	}
+	public void setTicketCost(Double ticketCost) {
+		this.ticketCost = ticketCost;
+	}
+	public List<Passenger> getPassengerList() {
 		return passengerList;
 	}
 	public void setPassengerList(List<Passenger> passengerList) {
@@ -86,12 +97,13 @@ public class Booking {
         this.noOfPassengers = noOfPassengers;
         this.user = user;
     }
+	public ScheduledFlight getScheduledFlight() {
+		return scheduledFlight;
+	}
+	public void setScheduledFlight(ScheduledFlight scheduledFlight) {
+		this.scheduledFlight = scheduledFlight;
+	}
     
-    public Flight getFlight() {
-		return flight;
-	}
-	public void setFlight(Flight flight) {
-		this.flight = flight;
-	}
-
+    
+    
 }

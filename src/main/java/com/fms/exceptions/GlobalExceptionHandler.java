@@ -18,14 +18,40 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 	
+	@ExceptionHandler(AirportIdNotFoundException.class)
+    public String handlingMethod(AirportIdNotFoundException e)
+    {
+        return "Id Not Found Exception"+":"+e.getMessage();
+    }
+	
+	@ExceptionHandler(ScheduleIdNotFoundException.class)
+    public String handlerForIdNotFoundException(ScheduleIdNotFoundException e)
+    {
+        return "Schedule Id Not Found Exception :"+e.getMessage();
+    }
+
+	@ExceptionHandler(FlightAlreadyExistsException.class)
+    public String handlingMethod(FlightAlreadyExistsException e)
+    {
+        return "FlightAlreadyExistsException"+":"+e.getMessage();
+    }
+	
 	@ExceptionHandler(BookingIdNotFoundException.class)
     public String handlingMethod(BookingIdNotFoundException e)
     {
         return "IdNotFoundException"+":"+e.getMessage();
     }
 	
-	@ExceptionHandler(IdNotFoundException.class)
-    public String handlerForIdNotFoundException(IdNotFoundException e)
+	
+	@ExceptionHandler(AdminUserCannotBeDeletedException.class)
+    public String handlerForAdminUserCannotBeDeletedException(AdminUserCannotBeDeletedException e)
+    {
+        return "AdminUserCannotBeDeletedException :"+e.getMessage();
+    }
+	
+	
+	@ExceptionHandler(UserIdNotFoundException.class)
+    public String handlerForIdNotFoundException(UserIdNotFoundException e)
     {
         return "IdNotFoundException :"+e.getMessage();
     }
@@ -40,8 +66,8 @@ public class GlobalExceptionHandler {
 		return "IdNotFoundException"+":"+e.getMessage();
 	}
 
-    @ExceptionHandler(IdAlreadyExistException.class)
-    public String handlerForIdAlreadyExistException(IdAlreadyExistException e)
+    @ExceptionHandler(UserIdAlreadyExistException.class)
+    public String handlerForIdAlreadyExistException(UserIdAlreadyExistException e)
     {
         return "IdAlreadyExistException :"+e.getMessage();
     }

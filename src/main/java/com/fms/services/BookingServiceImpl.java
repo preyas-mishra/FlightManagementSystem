@@ -31,9 +31,7 @@ public class BookingServiceImpl implements BookingService{
 	}
 	
 	public Booking addBooking(Booking booking) {
-//		Creates a new booking.
-//		Booking booking1=bookingRepository.save(booking);
-//		return new ResponseEntity<>(booking1,HttpStatus.CREATED);
+//		Creates a new booking
 		return bookingRepository.save(booking);
 	}
 	
@@ -52,8 +50,12 @@ public class BookingServiceImpl implements BookingService{
 			if(booking.getPassengerList()!=null) {
 				prevBooking.setPassengerList(booking.getPassengerList());
 			}
-//			Booking booking1=bookingRepository.save(prevBooking);
-//			return new ResponseEntity<Booking>(booking1,HttpStatus.ACCEPTED);
+			if(booking.getScheduledFlight()!=null) {
+				prevBooking.setScheduledFlight(booking.getScheduledFlight());
+			}
+			if(booking.getTicketCost()!=null) {
+				prevBooking.setTicketCost(booking.getNoOfPassengers()*booking.getScheduledFlight().getTicketCost());
+			}
 			
 			return bookingRepository.save(prevBooking);
 		}
@@ -78,14 +80,11 @@ public class BookingServiceImpl implements BookingService{
 	
 	//	Retrieves a list of all the bookings
 	public List<Booking>viewBooking(){
-
 		bookingList = bookingRepository.findAll();
 		return bookingList;
 	}
 	
 	public void deleteBooking(BigInteger bid) {
-//		Deletes a previous booking identifiable by the ‘bookingId’.
-		
 		Optional<Booking> oBooking = bookingRepository.findById(bid);
 		if(oBooking.isPresent()) {
 			bookingRepository.deleteById(bid);;
@@ -95,12 +94,9 @@ public class BookingServiceImpl implements BookingService{
 		}
 	}
 	
-	public void validateBooking(Booking bid) {
-//		Validates the attributes of a booking.
-		
-	}
+//	public Booking addBookingByUserId(Booking booking) {
+//		
+//	}
 	
-	public void validatePassenger(Passenger pid) {
-//		Validates the attributes of a passenger.
-	}
+	
 }

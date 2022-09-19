@@ -24,6 +24,21 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "schedules")
 public class Schedule {
 	
+	public Schedule() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Schedule(@NotEmpty BigInteger scheduleId, @NotEmpty Airport srcAirport, @NotEmpty Airport dstnAirport,
+			@FutureOrPresent LocalDateTime deptDateTime, @FutureOrPresent LocalDateTime arrDateTime) {
+		super();
+		this.scheduleId = scheduleId;
+		this.srcAirport = srcAirport;
+		this.dstnAirport = dstnAirport;
+		this.deptDateTime = deptDateTime;
+		this.arrDateTime = arrDateTime;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	//@Column(name = "schedule_id")
@@ -96,6 +111,7 @@ public class Schedule {
 	public void setArrDateTime(LocalDateTime arrDateTime) {
 		this.arrDateTime = arrDateTime;
 	}
+
 
 
 }

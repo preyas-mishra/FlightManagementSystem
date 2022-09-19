@@ -20,6 +20,20 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Airport {
 	
 	
+	public Airport() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Airport(@NotEmpty(message = "airport Id cannot be empty") int airportId,
+			@NotEmpty(message = "airport Name cannot be empty") String airportName,
+			@NotEmpty(message = "airport Location cannot be empty") String airportLocation,
+			@NotEmpty(message = "airportCode cannot be empty") String airportCode) {
+		super();
+		this.airportId = airportId;
+		this.airportName = airportName;
+		this.airportLocation = airportLocation;
+		this.airportCode = airportCode;
+	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@NotEmpty(message="airport Id cannot be empty")
@@ -36,6 +50,7 @@ public class Airport {
 	//private List<Schedule> schedules = new ArrayList<>();
 	
 	
+
 	public int getAirportId() {
 		return airportId;
 	}

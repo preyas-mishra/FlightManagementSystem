@@ -3,6 +3,9 @@ package com.fms.dtos;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +44,7 @@ public class User {
 
 //    @OneToOne(cascade = CascadeType.ALL)
 //    private Booking booking;
+    @JsonIgnore
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     @Valid
     private List<Booking> booking=new ArrayList<>();

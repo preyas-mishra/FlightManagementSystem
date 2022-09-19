@@ -36,6 +36,23 @@ public class Passenger {
 	@Min(value=1) @Max(value=25)
 	private double luggage;
 	
+	
+	/*
+	public Passenger(Integer passId, @Min(1000000000L) @Max(9999999999L) Long pnrNumber,
+			@NotEmpty(message = "The passengerName should not be blank.") String passengerName,
+			@NotNull(message = "The passengerAge should not be null.") Integer passengerAge,
+			@NotEmpty(message = "The gender field must not be blank.") String gender,
+			@Min(100000000000L) @Max(999999999999L) Long passengerUIN, @Min(1) @Max(25) double luggage) {
+		super();
+		this.passId = passId;
+		this.pnrNumber = pnrNumber;
+		this.passengerName = passengerName;
+		this.passengerAge = passengerAge;
+		this.gender = gender;
+		this.passengerUIN = passengerUIN;
+		this.luggage = luggage;
+	}
+*/
 	public Integer getPassId() {
 		return passId;
 	}

@@ -50,6 +50,13 @@ public class BookingServiceImpl implements BookingService{
 			if(booking.getPassengerList()!=null) {
 				prevBooking.setPassengerList(booking.getPassengerList());
 			}
+			if(booking.getScheduledFlight()!=null) {
+				prevBooking.setScheduledFlight(booking.getScheduledFlight());
+			}
+			if(booking.getTicketCost()!=null) {
+				prevBooking.setTicketCost(booking.getNoOfPassengers()*booking.getScheduledFlight().getTicketCost());
+			}
+			
 			return bookingRepository.save(prevBooking);
 		}
 		else {

@@ -2,8 +2,10 @@ package com.fms;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import java.math.BigInteger;
@@ -13,9 +15,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.fms.daos.AirportDao;
 import com.fms.daos.BookingDao;
+import com.fms.daos.FlightDao;
 import com.fms.daos.UserDao;
+import com.fms.dtos.Airport;
 import com.fms.dtos.Booking;
+import com.fms.dtos.Flight;
 import com.fms.dtos.User;
 import com.fms.services.BookingServiceImpl;
 import com.fms.services.UserServiceImpl;
@@ -30,11 +36,18 @@ class FmsApplicationTests {
 	BigInteger bi4 = BigInteger.valueOf(107);
 	BigInteger bi5 = BigInteger.valueOf(105);
 	BigInteger bi6 = BigInteger.valueOf(102);
+	
+	@Autowired
+	FlightDao flightRepo;
+
 	@Autowired
 	BookingDao bookingDao;
 	
 	@Autowired
 	UserDao userDao;
+	
+	@Autowired
+	AirportDao airportRepository;
 	
 	@Autowired
 	BookingServiceImpl bookingService; 
@@ -136,4 +149,116 @@ class FmsApplicationTests {
 		bookingService.deleteBooking(bi4);
 		assertThat(bookingDao.existsById(bi4)).isFalse();
 	}
+	
+	
+	@Test
+	public void testAddFlight() {
+		Flight flight=new Flight();
+		flight.setFlightNo(BigInteger.valueOf(9L));
+		flight.setFlightModel("Boeing ");
+		flight.setCarrierName("Emirates");
+		flight.setSeatCapacity(368);
+		flightRepo.save(flight);
+		assertNotNull(flightRepo.findById(BigInteger.valueOf(9L)).get());
+		}
+	
+//	@Test
+//	public void testViewAllFlight() {
+//		List<Flight>list=flightRepo.findAll();
+//		assertThat(list).size().isGreaterThan(0);
+//		
+//	}
+	
+	
+	@Test
+	public void testModifyFlight() {
+		Flight flight=flightRepo.findById(BigInteger.valueOf(9L)).get();
+		flight.setSeatCapacity(390);
+		Flight flightModified=flightRepo.save(flight);
+		
+		assertEquals(390,flightModified.getSeatCapacity());
+	}
+	
+	@Test
+	public void testDelete() {
+		/*Flight flight=flightRepo.findById(BigInteger.valueOf(9L)).get();
+		flightRepo.delete(flight);
+		Flight deleteFlight=flightRepo.findById(BigInteger.valueOf(9L)).get();
+		
+		assertNotNull(deleteFlight);*/
+		boolean flightbefore=flightRepo.findById(BigInteger.valueOf(9L)).isPresent();
+		flightRepo.deleteById(BigInteger.valueOf(9L));
+		boolean flightafter=flightRepo.findById(BigInteger.valueOf(9L)).isPresent();
+		
+		assertTrue(flightbefore);
+		assertFalse(flightafter);
+		
+		
+	}
+	
+	@Test
+	public void testViewFlight() {
+		Flight flight=flightRepo.findById(BigInteger.valueOf(9L)).get();
+		assertEquals("Emirates",flight.getCarrierName());
+	}
+	
+	
+	@Test
+	public void testCreateAirport() {
+		Airport a=new Airport();
+		a.setAirportId(bi4);
+		a.setAirportName("Dabolim Airport");
+		a.setAirportLocation("Airport Rd, Dabolim, Goa 403801");
+		a.setAirportCode("GOI");
+		airportRepository.save(a);
+		assertNotNull(airportRepository.findById(bi4).get());
+	}
+	
+	@Test
+	public void testReadAllAirports() {
+		List<Airport> list=airportRepository.findAll();
+		assertThat(list).size().isGreaterThan(0);
+	}
+	
+	@Test
+	public void testSingleAirport() {
+		Airport airport=airportRepository.findById(bi4).get();
+		assertEquals("GOI",airport.getAirportCode());
+	}
+	
+	@Test
+	public void testUpdateAirport() {
+		Airport a=airportRepository.findById(bi4).get();
+		a.setAirportLocation("Airport Rd, Dabolim, Goa, India, 403801");
+		airportRepository.save(a);
+		assertNotEquals("Airport Rd, Dabolim, Goa, India, 403801",airportRepository.findById(bi4).get().getAirportLocation());
+	}
+	
+	@Test
+	public void testDeleteAirport() {
+		airportRepository.deleteById(bi4);
+		assertThat(airportRepository.existsById(bi4)).isFalse();
+	}
+	
+	
+	/*
+	//Schedule
+	@Test
+	public void testCreateSchedule() {
+		Schedule s=new Schedule();
+		s.ScheduleId(12345);
+		s.setDeptDateTime(2022-12-22 12:23:34);
+		s.setArrDateTime(2022-12-22 15:10:30);
+		s.setDstnAirport(null);
+		s.setSrcAirport(null);
+	}
+	
+	@Test
+	public void testReadAllSchedules() {
+		List<Schedule> list=scheduleRepository.findAll();
+		assertThat(list).size().isGreaterThan(0);
+	}
+	
+	*/
+
 }

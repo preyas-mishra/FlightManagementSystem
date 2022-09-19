@@ -1,90 +1,93 @@
 package com.fms.services;
 
-import com.fms.exceptions.*;
 import java.math.BigInteger;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.fms.daos.FlightDao;
-import com.fms.exceptions.RecordAlreadyPresentException;
 import com.fms.dtos.Flight;
+import com.fms.exceptions.FlightAlreadyExistsException;
+import com.fms.exceptions.RecordNotFoundException;
 
 @Service
 public class FlightServiceImpl implements FlightService {
+	
 	@Autowired
-	FlightDao flightDao;
-
-	/*
-	 * add a flight
-	 */
-	@Override
-	public ResponseEntity<Flight> addFlight(Flight flight) {
-		Optional<Flight> findById = flightDao.findById(flight.getFlightNo());
-		try {
-		if (!findById.isPresent()) {
-			flightDao.save(flight);
-			return new ResponseEntity<Flight>(flight,HttpStatus.OK);
-		} else
-			throw new RecordAlreadyPresentException("Flight with number: " + flight.getFlightNo() + " already present");
-	}
-		catch(RecordAlreadyPresentException e)
-		{
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-	}
-
-	/*
-	 * view all flights
-	 */
+	private FlightDao flightRepo;
+	
 	@Override
 	public Iterable<Flight> viewAllFlight() {
-		return flightDao.findAll();
+		return flightRepo.findAll();
 	}
-
-	/*
-	 * search a flight
-	 */
+	
 	@Override
 	public Flight viewFlight(BigInteger flightNumber) {
-		Optional<Flight> findById = flightDao.findById(flightNumber);
-		if (findById.isPresent()) {
-			return findById.get();
+		 //flightRepo.findById(flightNumber);
+		Optional<Flight> fFlight=flightRepo.findById(flightNumber);
+		if(fFlight.isPresent()) {
+			return fFlight.get();
 		}
-		else
-			throw new RecordNotFoundException("Flight with number: " + flightNumber + " not exists");
+		else {
+		throw new RecordNotFoundException("Flight with id:"+flightNumber+"does not exists");
 	    }
-		/*catch(RecordNotFoundException e)
-		{
-			return new ResponseEntity(e.getMessage(),HttpStatus.NOT_FOUND);
-		}*/
-
-	/*
-	 * modify a flight
-	 */
+	}
+	
 	@Override
-	public Flight modifyFlight(Flight flight) {
-		Optional<Flight> findById = flightDao.findById(flight.getFlightNo());
-		if (findById.isPresent()) {
-			flightDao.save(flight);
-		} else
-			throw new RecordNotFoundException("Flight with number: " + flight.getFlightNo() + " not exists");
-		return flight;
+	public ResponseEntity<Flight> addFlight(Flight flight) {
+		Optional<Flight> findById = flightRepo.findById(flight.getFlightNo());
+		if (!findById.isPresent()) {
+			flightRepo.save(flight);
+			return new ResponseEntity<Flight>(flight,HttpStatus.CREATED);
+		}
+		else {
+			throw new FlightAlreadyExistsException("Flight already exists");
+		}
+		//flightRepo.save(flight);
+		//return new ResponseEntity<Flight>(flight,HttpStatus.CREATED);
 	}
-
-	/*
-	 * remove a flight
-	 */
+	
+	@Override
+	public  ResponseEntity<String> modifyFlight(BigInteger flightNumber,Flight flight) {
+		Optional<Flight> findById = flightRepo.findById(flightNumber);
+		if (findById.isPresent()) {
+			Flight prevFlight=findById.get();
+			if(flight.getCarrierName()!=null) {
+				prevFlight.setCarrierName(flight.getCarrierName());
+			}
+			if(flight.getFlightModel()!=null) {
+				prevFlight.setFlightModel(flight.getCarrierName());
+			}
+			
+			flightRepo.save(flight);
+			return new ResponseEntity<String>("Data updated successfully",HttpStatus.ACCEPTED);
+		} 
+		else {
+			throw new RecordNotFoundException("Flight no"+flightNumber+" is not found ");
+		}
+		//return flight;
+	}
+	
+	@Override
 	public String removeFlight(BigInteger flightNumber) {
-		Optional<Flight> findById = flightDao.findById(flightNumber);
+		Optional<Flight> findById = flightRepo.findById(flightNumber);
 		if (findById.isPresent()) {
-			flightDao.deleteById(flightNumber);
+			flightRepo.deleteById(flightNumber);
 			return "Flight removed!!";
+			
 		} else
-			throw new RecordNotFoundException("Flight with number: " + flightNumber + " not exists");
+			throw new RecordNotFoundException("Flight No"+ flightNumber+"does not exists");
 
 	}
+
+	
+	
+	
+	
+	
+
 }

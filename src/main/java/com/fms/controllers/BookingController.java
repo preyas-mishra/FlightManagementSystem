@@ -35,16 +35,16 @@ public class BookingController {
 		private List<Booking>bookingList;
 		
 		
-		@PostMapping("/bookingsbyuser/{userId}")
-		public ResponseEntity<User> addBookingByUserId(@Valid @RequestBody Booking booking,@PathVariable("userId") BigInteger userId){
-			User user = userService.viewUser(userId);
-			List<Booking>bookingList1 = user.getBooking();
-			booking.setUser(user);
-			booking.setTicketCost(300.00);
-			bookingList1.add(booking);
-			user.setBooking(bookingList1);
-			return new ResponseEntity<>(user,HttpStatus.OK);
-		}
+//		@PostMapping("/bookingsbyuser/{userId}")
+//		public ResponseEntity<User> addBookingByUserId(@Valid @RequestBody Booking booking,@PathVariable("userId") BigInteger userId){
+//			User user = userService.viewUser(userId);
+//			List<Booking>bookingList1 = user.getBooking();
+//			booking.setUser(user);
+//			booking.setTicketCost(300.00);
+//			bookingList1.add(booking);
+//			user.setBooking(bookingList1);
+//			return new ResponseEntity<>(user,HttpStatus.OK);
+//		}
 		
 		@PostMapping("/bookings")
 		public ResponseEntity<Booking> addBooking(@Valid @RequestBody Booking booking) {

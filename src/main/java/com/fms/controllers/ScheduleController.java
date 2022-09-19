@@ -1,60 +1,60 @@
 package com.fms.controllers;
 
 import java.math.BigInteger;
+import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fms.exceptions.RecordAlreadyPresentException;
-import com.fms.exceptions.RecordNotFoundException;
-import com.fms.dtos.Flight;
 import com.fms.dtos.Schedule;
-import com.fms.services.FlightService;
-import com.fms.services.FlightServiceImpl;
+import com.fms.services.AirportServiceImpl;
 import com.fms.services.ScheduleService;
-
 
 @RestController
 public class ScheduleController {
-	@Autowired(required = true)
-	ScheduleService scheduleService;
 
-	@PostMapping("/schedule")
-	@ExceptionHandler(RecordAlreadyPresentException.class)
-	public void addSchedule(@RequestBody Schedule schedule) {
-		scheduleService.addSchedule(schedule);
+	@Autowired
+    ScheduleService scheduleService;
+	
+	@Autowired
+	AirportServiceImpl airportService ;
+	
+	@PostMapping("/schedules")
+	public ResponseEntity<Schedule> addSchedule(@Valid @RequestBody Schedule schedule) {
+		Schedule schedule1=scheduleService.addSchedule(schedule);
+		return new ResponseEntity<>(schedule1,HttpStatus.OK);
 	}
-
-	@GetMapping("/schedule")
-	public Iterable<Schedule> viewAllSchedule() {
-		return scheduleService.viewAllSchedule();
+	
+	@GetMapping("/schedules")
+	public List<Schedule> viewSchedules() {
+		return scheduleService.viewSchedules();
 	}
-
-	@GetMapping("/schedule/{id}")
-	@ExceptionHandler(RecordNotFoundException.class)
-	public Schedule viewSchedule(@PathVariable("id") BigInteger scheduleId) {
+	
+	@PutMapping("/schedules")
+	public ResponseEntity<Schedule> modifySchedule(@Valid @RequestBody Schedule schedule) {
+		Schedule schedule1=scheduleService.modifySchedule(schedule);
+		return new ResponseEntity<>(schedule1,HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/schedules/{scheduleId}")
+	public ResponseEntity<String> deleteSchedule(@PathVariable("scheduleId") BigInteger scheduleId) {
+		scheduleService.deleteSchedule(scheduleId);
+		return new ResponseEntity<String>("Record Deleted Successfully with Id"+scheduleId,HttpStatus.OK);
+	}
+	
+	@GetMapping("/schedules/{scheduleId}")
+	public Schedule viewSchedule(@PathVariable("scheduleId") BigInteger scheduleId){
 		return scheduleService.viewSchedule(scheduleId);
 	}
 
-	@PutMapping("/schedule")
-	@ExceptionHandler(RecordNotFoundException.class)
-	public void modifySchedule(@RequestBody Schedule schedule) {
-		scheduleService.modifyschedule(schedule);
-	}
-
-	@DeleteMapping("/schedule/{id}")
-	@ExceptionHandler(RecordNotFoundException.class)
-	public void removeSchedule(@PathVariable("id") BigInteger scheduleId) {
-		scheduleService.removeSchedule(scheduleId);
-	}
 }

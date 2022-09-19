@@ -18,6 +18,24 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 	
+	@ExceptionHandler(AirportIdNotFoundException.class)
+    public String handlingMethod(AirportIdNotFoundException e)
+    {
+        return "Id Not Found Exception"+":"+e.getMessage();
+    }
+	
+	@ExceptionHandler(ScheduleIdNotFoundException.class)
+    public String handlerForIdNotFoundException(ScheduleIdNotFoundException e)
+    {
+        return "Schedule Id Not Found Exception :"+e.getMessage();
+    }
+
+	@ExceptionHandler(FlightAlreadyExistsException.class)
+    public String handlingMethod(FlightAlreadyExistsException e)
+    {
+        return "FlightAlreadyExistsException"+":"+e.getMessage();
+    }
+	
 	@ExceptionHandler(BookingIdNotFoundException.class)
     public String handlingMethod(BookingIdNotFoundException e)
     {

@@ -25,14 +25,14 @@ public class Booking {
     private LocalDate bookingDate;
     
 	
-	private Double ticketCost = 200.00;
+	private Double ticketCost;
     
     @OneToMany(mappedBy = "booking",cascade = CascadeType.ALL)
     @Valid
     private List<Passenger>passengerList = new ArrayList<>();
     
-//    @OneToOne
-//    private Flight flight;
+    @OneToOne
+    private ScheduledFlight scheduledFlight;
 
 
 	@Min(value = 1, message = "No of Passengers should be in range of 1-4")
@@ -97,13 +97,13 @@ public class Booking {
         this.noOfPassengers = noOfPassengers;
         this.user = user;
     }
+	public ScheduledFlight getScheduledFlight() {
+		return scheduledFlight;
+	}
+	public void setScheduledFlight(ScheduledFlight scheduledFlight) {
+		this.scheduledFlight = scheduledFlight;
+	}
     
-//    public Flight getFlight() {
-//		return flight;
-//	}
-//	public void setFlight(Flight flight) {
-//		this.flight = flight;
-//	}
-
+    
     
 }

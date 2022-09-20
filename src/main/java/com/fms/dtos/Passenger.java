@@ -40,7 +40,7 @@ public class Passenger {
 	@Min(value=1) @Max(value=25)
 	private double luggage;
 	
-    @JsonIgnore
+    
     @ManyToOne
     @JoinColumn(name="booking_id")
     private Booking booking;

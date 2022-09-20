@@ -26,12 +26,13 @@ public class Booking {
     
 	
 	private Double ticketCost;
-    
+    @JsonIgnore
     @OneToMany(mappedBy = "booking",cascade = CascadeType.ALL)
     @Valid
     private List<Passenger>passengerList = new ArrayList<>();
     
     @OneToOne
+    @Valid
     private ScheduledFlight scheduledFlight;
 
 
@@ -39,7 +40,6 @@ public class Booking {
     @Max(value = 4, message = "No of Passengers should be in range of 1-4")
     private Integer noOfPassengers;
 
-    
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;

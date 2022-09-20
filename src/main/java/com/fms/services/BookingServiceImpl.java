@@ -32,6 +32,8 @@ public class BookingServiceImpl implements BookingService{
 	
 	public Booking addBooking(Booking booking) {
 //		Creates a new booking
+		Double ticketCost = booking.getNoOfPassengers()*booking.getScheduledFlight().getTicketCost();
+		booking.setTicketCost(ticketCost);
 		return bookingRepository.save(booking);
 	}
 	
@@ -53,10 +55,6 @@ public class BookingServiceImpl implements BookingService{
 			if(booking.getScheduledFlight()!=null) {
 				prevBooking.setScheduledFlight(booking.getScheduledFlight());
 			}
-			if(booking.getTicketCost()!=null) {
-				prevBooking.setTicketCost(booking.getNoOfPassengers()*booking.getScheduledFlight().getTicketCost());
-			}
-			
 			return bookingRepository.save(prevBooking);
 		}
 		else {

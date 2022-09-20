@@ -44,11 +44,11 @@ public class Schedule {
 	@NotEmpty
 	public BigInteger scheduleId;
 
-	@OneToOne(fetch = FetchType.EAGER,cascade =  CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER,cascade =  CascadeType.MERGE)
 	@NotEmpty
 	public Airport srcAirport;
 
-	@OneToOne(fetch = FetchType.EAGER,cascade =  CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER,cascade =  CascadeType.MERGE)
 	@NotEmpty
 	public Airport dstnAirport;
 

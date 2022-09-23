@@ -19,6 +19,12 @@ public class GlobalExceptionHandler {
         return "Id Not Found Exception"+":"+e.getMessage();
     }
 	
+	@ExceptionHandler(AirportCodeNotFoundException.class)
+    public String handlingMethod(AirportCodeNotFoundException e)
+    {
+        return "Code Not Found Exception"+":"+e.getMessage();
+    }
+	
 	@ExceptionHandler(ScheduleIdNotFoundException.class)
     public String handlerForIdNotFoundException(ScheduleIdNotFoundException e)
     {

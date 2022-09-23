@@ -29,7 +29,7 @@ public class Schedule {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Schedule(@NotEmpty BigInteger scheduleId, @NotEmpty Airport srcAirport, @NotEmpty Airport dstnAirport,
+	public Schedule(/*@NotEmpty BigInteger scheduleId, @NotEmpty */Airport srcAirport, /*@NotEmpty */Airport dstnAirport,
 			@FutureOrPresent LocalDateTime deptDateTime, @FutureOrPresent LocalDateTime arrDateTime) {
 		super();
 		this.scheduleId = scheduleId;
@@ -41,15 +41,15 @@ public class Schedule {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@NotEmpty
+	//@NotEmpty
 	public BigInteger scheduleId;
 
-	@OneToOne(fetch = FetchType.EAGER,cascade =  CascadeType.MERGE)
-	@NotEmpty
+	@OneToOne(fetch = FetchType.EAGER)
+	//@NotEmpty
 	public Airport srcAirport;
 
-	@OneToOne(fetch = FetchType.EAGER,cascade =  CascadeType.MERGE)
-	@NotEmpty
+	@OneToOne(fetch = FetchType.EAGER)
+	//@NotEmpty
 	public Airport dstnAirport;
 
 	@FutureOrPresent

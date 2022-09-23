@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.fms.daos.AirportDao;
 import com.fms.dtos.Airport;
+import com.fms.exceptions.AirportCodeNotFoundException;
 //import com.fms.exceptions.AirportIdAlreadyExistException;
 import com.fms.exceptions.AirportIdNotFoundException;
 
@@ -41,9 +42,14 @@ public class AirportServiceImpl implements AirportService {
 	
 	@Override
 	public List<Airport> findByAirportCode(String airportCode){
-		List<Airport> airports=airportRepository.findByAirportCode("HYD");
-		airports.forEach(e->System.out.println(e));	
-		return airports;
+		Optional<List<Airport>> findByCode = Optional.of(airportRepository.findByAirportCode(airportCode));
+		if (findByCode.isPresent()) {
+			return findByCode.get();
+		}
+		else
+		{
+			throw new AirportCodeNotFoundException("Airport not found with airport code: " + airportCode);
+		}
 	}
 	
 	 

@@ -33,7 +33,7 @@ public class AirportController {
 	}
 	
 	@GetMapping("/airports/{airportId}")
-	@ExceptionHandler(AirportIdNotFoundException.class)
+	//@ExceptionHandler(AirportIdNotFoundException.class)
 	public Airport viewAirportById(@PathVariable("airportId") Integer airportId) {
 		return airportService.viewAirportById(airportId);
 	}

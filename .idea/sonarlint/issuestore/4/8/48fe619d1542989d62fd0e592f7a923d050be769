@@ -1,0 +1,8 @@
+
+k
+java:S3655*"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(Ûž¦Ìüÿÿÿÿ
+f
+java:S3655+"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(ÎÔú¬
+V	java:S125@"<This block of commented-out lines of code should be removed.(ñ¥ùšøÿÿÿÿ
+j
+java:S1128"TRemove this unnecessary import: same package classes are always implicitly imported.(¤…“¦

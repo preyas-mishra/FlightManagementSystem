@@ -1,0 +1,11 @@
+
+t
+java:S1192<"YDefine a constant instead of duplicating this literal "Booking Id is not found " 3 times.(ûè–ßÿÿÿÿÿ
+Q	java:S125"<This block of commented-out lines of code should be removed.(½—Ò
+Q	java:S125"<This block of commented-out lines of code should be removed.(Øÿû°
+u
+java:S1450"ZRemove the "bookingList" field and declare it as a local variable in the relevant methods.(şßóüÿÿÿÿ
+V	java:S125&"<This block of commented-out lines of code should be removed.(ÈŒ›ûÿÿÿÿ
+Q	java:S1257"<This block of commented-out lines of code should be removed.(¡ƒÙâ
+2
+java:S1116_"Remove this empty statement.(²éÈ‚

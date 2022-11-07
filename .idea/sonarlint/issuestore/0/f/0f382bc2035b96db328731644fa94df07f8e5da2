@@ -1,0 +1,18 @@
+
+o
+java:S2293$"YReplace the type specification in this constructor call with the diamond operator ("<>").(œ¦ªà
+U
+java:S4684!"@Replace this persistent entity with a simple POJO or DTO object.(ò¯\
+[
+java:S46844"@Replace this persistent entity with a simple POJO or DTO object.(úº¹ùúÿÿÿÿ
+k
+java:S1128
+"URemove this unused import 'org.springframework.web.bind.annotation.ExceptionHandler'.(–Œ•¬
+i
+java:S1128"SRemove this unused import 'org.springframework.web.bind.annotation.RequestMapping'.(ö»¿ë
+c
+java:S1128"MRemove this unused import 'com.fms.exceptions.RecordAlreadyPresentException'.(óî®
+]
+java:S1128"GRemove this unused import 'com.fms.exceptions.RecordNotFoundException'.(î·‡¥
+Z
+java:S1128"?Remove this unused import 'com.fms.services.FlightServiceImpl'.(¸ì´Æùÿÿÿÿ

@@ -1,0 +1,13 @@
+
+X	java:S125"<This block of commented-out lines of code should be removed.(Ú°à¬8®”…Ã¸0
+P
+java:S1128".Remove this unused import 'com.fms.dtos.User'.(º‚ÎÕıÿÿÿÿ8®”…Ã¸0
+d
+java:S1128"GRemove this unused import 'org.springframework.boot.CommandLineRunner'.(È—ÿÅ8®”…Ã¸0
+e
+java:S1128	"HRemove this unused import 'org.springframework.context.annotation.Bean'.(‚î‰Ş8®”…Ã¸0
+l
+java:S1128
+"QRemove this unused import 'org.springframework.context.annotation.ComponentScan'.(æëòÒûÿÿÿÿ
+N
+java:S1128"1Remove this unused import 'java.math.BigInteger'.(»Çâ€8¹”…Ã¸0

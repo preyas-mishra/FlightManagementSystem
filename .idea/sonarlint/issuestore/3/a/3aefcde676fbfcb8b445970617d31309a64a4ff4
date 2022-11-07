@@ -1,0 +1,20 @@
+
+J
+java:S3740N"/Provide the parametrized type for this generic.(‹σμΎÿÿÿÿÿ
+J
+java:S3740b"/Provide the parametrized type for this generic.(ΰΰΊφÿÿÿÿÿ
+o
+java:S2293*"YReplace the type specification in this constructor call with the diamond operator ("<>").(®όΞ―
+t
+java:S2293R"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ζούÿÿÿÿ
+o
+java:S2293d"YReplace the type specification in this constructor call with the diamond operator ("<>").(ΎΗ”
+[
+java:S4684!"@Replace this persistent entity with a simple POJO or DTO object.(£τύÿÿÿÿ
+Q	java:S125+"<This block of commented-out lines of code should be removed.(‚£®Λ
+[
+java:S4684I"@Replace this persistent entity with a simple POJO or DTO object.(π‹βΐϋÿÿÿÿ
+N
+java:S1128"3Remove this unused import 'javax.validation.Valid'.(ζ¤ρχϊÿÿÿÿ
+H
+java:S1128"2Remove this unused import 'com.fms.dtos.Schedule'.(Π²ι
